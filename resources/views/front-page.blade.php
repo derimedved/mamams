@@ -85,7 +85,7 @@
                         <div class="line"></div>
                         <ul>
                             @foreach ($links as $link)
-                            <li><a href="{{ $link->course_link->url }}" class="">{{ $link->course_link->title }}</a></li>
+                                <li><a href="{{ $link->course_link->url }}" class="">{{ $link->course_link->title }}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -104,22 +104,22 @@
                 </div>
                 @if ($image_left)
                     <div class="pos-element pos-element__pos-left"><img
-                            src="{{ $image_left->sizes->{'600x600'} }}" alt="{{ $image_left->alt }}"></div>
+                                src="{{ $image_left->sizes->{'600x600'} }}" alt="{{ $image_left->alt }}"></div>
                 @else
                     <div class="pos-element pos-element__pos-left"><img
-                            src="{{ get_template_directory_uri() }}/assets/img/main_banner_maman1.png" alt=""></div>
+                                src="{{ get_template_directory_uri() }}/assets/img/main_banner_maman1.png" alt=""></div>
                 @endif
                 @if ($image_right)
                     <div class="pos-element pos-element__pos-right dt-only"><img
-                            src="{{ $image_right->sizes->{'600x600'} }}" alt="{{ $image_right->alt }}"></div>
+                                src="{{ $image_right->sizes->{'600x600'} }}" alt="{{ $image_right->alt }}"></div>
                 @else
                     <div class="pos-element pos-element__pos-right"><img
-                            src="{{ get_template_directory_uri() }}/assets/img/main_banner_maman2.png" alt=""></div>
+                                src="{{ get_template_directory_uri() }}/assets/img/main_banner_maman2.png" alt=""></div>
                 @endif
 
                 @if ($image_right_mob)
                     <div class="pos-element pos-element__pos-right mob-only"><img
-                            src="{{ $image_right_mob->sizes->{'600x600'} }}" alt="{{ $image_right_mob->alt }}"></div>
+                                src="{{ $image_right_mob->sizes->{'600x600'} }}" alt="{{ $image_right_mob->alt }}"></div>
                 @endif
 
 
@@ -168,29 +168,29 @@
                 <h3>{{ $title_doc }}</h3>
                 <div class="content">
                     @foreach ($documents as $document)
-                    <div class="item">
-                        <figure>
-                            <img src="{{ $document->image->sizes->large }}" alt="">
-                        </figure>
-                        <div class="text-wrap">
-                            <div class="top">
-                                <p class="label">{{ $document->title }}</p>
-                                <h4>{!!  $document->label  !!}</h4>
-                                <div class="line"></div>
-                                <p class="text">{{ $document->excerpt_text }}</p>
-                            </div>
-                            <div class="btn-wrap">
-                                <a href="{{ $document->button->url }}">{{ $document->button->title }}</a>
+                        <div class="item">
+                            <figure>
+                                <img src="{{ $document->image->sizes->large }}" alt="">
+                            </figure>
+                            <div class="text-wrap">
+                                <div class="top">
+                                    <p class="label">{{ $document->title }}</p>
+                                    <h4>{!!  $document->label  !!}</h4>
+                                    <div class="line"></div>
+                                    <p class="text">{{ $document->excerpt_text }}</p>
+                                </div>
+                                <div class="btn-wrap">
+                                    <a href="{{ $document->button->url }}">{{ $document->button->title }}</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
         </section>
 
         @if ($show_discount)
-                @if(!App::isPremium())
+            @if(!App::isPremium())
                 <section class="sale-block">
                     <div class="bg">
                         <img src="{{ get_template_directory_uri() }}/assets/img/img200-9.png" alt="">
@@ -211,7 +211,7 @@
                         </div>
                     </div>
                 </section>
-                @endif
+            @endif
         @endif
 
         <section class="home-testimonials">
@@ -222,33 +222,33 @@
                 <div class="slider-wrap">
                     <div class="owl-carousel home-testimonials-slider owl-theme">
                         @foreach ($testimonials as $testimonial)
-                        <div class="slide">
-                            <div class="top">
-                                <div class="stars-wrap">
-                                    <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
-                                    <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
-                                    <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
-                                    <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
-                                    <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
+                            <div class="slide">
+                                <div class="top">
+                                    <div class="stars-wrap">
+                                        <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
+                                        <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
+                                        <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
+                                        <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
+                                        <img src="{{ get_template_directory_uri() }}/assets/img/icon200-5.svg" alt="">
+                                    </div>
+                                    <p>{{ $testimonial->rate_text }}</p>
                                 </div>
-                                <p>{{ $testimonial->rate_text }}</p>
-                            </div>
-                            <div class="slide-content">
-                                <blockquote>{{ $testimonial->quote }}</blockquote>
-                            </div>
-                            <div class="bottom">
-                                <div class="user">
-                                    <div class="img">
-                                        <img src="{{ $testimonial->photo->url }}" alt="">
+                                <div class="slide-content">
+                                    <blockquote>{{ $testimonial->quote }}</blockquote>
+                                </div>
+                                <div class="bottom">
+                                    <div class="user">
+                                        <div class="img">
+                                            <img src="{{ $testimonial->photo->url }}" alt="">
 
-                                    </div>
-                                    <div class="text">
-                                        <p><b>{{ $testimonial->name }}</b></p>
-                                        <p>{{ $testimonial->location }}</p>
+                                        </div>
+                                        <div class="text">
+                                            <p><b>{{ $testimonial->name }}</b></p>
+                                            <p>{{ $testimonial->location }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <div class="owl-theme nav-wrap">
@@ -262,22 +262,22 @@
         </section>
 
         @if ($show_logos)
-        <section class="logo-block">
-            <div class="content-width">
-                <h3>{{ $logos_title }}</h3>
-                <div class="content">
-                    <div class="wrap">
-                        @foreach ($logos_images as $logos_image)
-                        <figure>
-                            <img src="{{ $logos_image->sizes->large }}" alt="">
-                        </figure>
-                        @endforeach
+            <section class="logo-block">
+                <div class="content-width">
+                    <h3>{{ $logos_title }}</h3>
+                    <div class="content">
+                        <div class="wrap">
+                            @foreach ($logos_images as $logos_image)
+                                <figure>
+                                    <img src="{{ $logos_image->sizes->large }}" alt="">
+                                </figure>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
         @endif
-       
+
 
         <div class="home-wrap">
             @include('partials.content-coming-soon')

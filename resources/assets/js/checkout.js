@@ -153,6 +153,16 @@ var checkoutObj
 
 			if ($('[name="course_type"][value="one_course"]').prop('checked') == true)
 				container.find('.cost').html(price);
+			else {
+				var priceM =  $('.price-premium').attr('data-price-month');
+				var priceY =  $('.price-premium').attr('data-price-year');
+				var newPriceM = calcPrecent(Number(precent),Number(priceM));
+				var newPriceY = calcPrecent(Number(precent),Number(priceY));
+
+				$('.cost-wrap .cost').text('€' + newPriceM + '/MOIS')
+				$('.cost-wrap .info2').text('(soit ' + newPriceY + '€ pour l`accès à toutes les formations pendant 12 mois)')
+
+			}
 			// container.find('.plan__field_details-img').html(image);
 			// container.find('.plan__field_details-description').html(description);
 			$formCheckout.removeClass('loading');

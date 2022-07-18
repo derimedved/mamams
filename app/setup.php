@@ -29,9 +29,7 @@ add_action('wp_enqueue_scripts', function () {
     ];
 
 
-    if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
-        basename(get_page_template()) == "template-registration-upd.blade.php" ||
-        basename(get_page_template()) == "template-quiz.blade.php"){
+    if(basename(get_page_template()) == "template-plan-upd.blade.php"){
 
         $styles[]="assets/css/nice-select.css";
         $styles[]="assets/css/updated_checkout.css?v=".rand(0,9999);
@@ -116,33 +114,16 @@ add_action('wp_enqueue_scripts', function () {
      }
 
 
-    if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
-        basename(get_page_template()) == "template-registration-upd.blade.php"
-    ){
+    if(basename(get_page_template()) == "template-plan-upd.blade.php"){
 
         $scripts[]="assets/js/jquery.sticky.js";
         $scripts[]="assets/js/jquery.nice-select.min.js";
 
         $scripts[]="assets/js/updated_checkout.js?v=".rand(0,9999);
-
-        $scripts[]="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" ;
-
-
-     }
-
-    if(basename(get_page_template()) == "template-plan-upd.blade.php" || basename(get_page_template()) == "template-registration-upd.blade.php" ){
-
-        wp_enqueue_script('jqueryvalidation',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', array(), false, 1);
-        wp_enqueue_script('jqueryvalidation_fr',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/localization/messages_fr.js', array(), false, 1);
-
-
-
     }
 
 
-    if(  basename(get_page_template()) == "template-registration-upd.blade.php" ) {
-        $scripts[]="assets/js/registration.js?v=".rand(0,9999);
-    }
+
 
 
 

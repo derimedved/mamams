@@ -53,7 +53,7 @@ $isPremium = \App::isPremium();
       <div class="tabs-courses">
         <ul class="tabs-menu">
 
-            <li class="<?= !$_GET['my'] ? 'is-active' : '' ?>" data-page="0">Tous</li>
+            <li class="is-active" data-page="0">Tous</li>
 
             <?php
             $course_categories[0] = '';
@@ -67,7 +67,7 @@ $isPremium = \App::isPremium();
 
 
             <?php if ($archive_orders) { ?>
-                <li class="my-tab <?= $_GET['my'] ? 'is-active' : '' ?>">Mes formations</li>
+                <li>Mes formations</li>
             <?php } ?>
 
 
@@ -108,7 +108,7 @@ $isPremium = \App::isPremium();
             <?php } ?>
 
             <?php if ($query['items'] || \App::isPremium()) { ?>
-                <div class=" tab-item">
+                <div class="tab-item">
                     <?php
 
                     foreach($query['items'] as $item) {
@@ -207,13 +207,6 @@ $isPremium = \App::isPremium();
 
 </main>
 
-<?php if ($_GET['my']) { ?>
-
-    <script>
-        var tabPage = 3
-    </script>
-
-    <?php } ?>
 <?php
 
 /**

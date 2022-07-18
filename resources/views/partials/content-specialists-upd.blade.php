@@ -1,14 +1,7 @@
 
 <section class="expert-slider-wrap">
     <div class="container">
-        <h3><?php
-            if (is_front_page())
-                echo $title;
-            else
-                $title ? 'NOS EXPERTS' : get_field('title_1', 246)
-
-
-            ?></h3>
+        <h3><?= $title ? 'NOS EXPERTS' : get_field('title_1', 246) ?></h3>
         <div class="owl-carousel owl-theme expert-slider">
 
             <?php

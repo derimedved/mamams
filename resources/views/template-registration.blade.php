@@ -16,11 +16,6 @@
 @section('content')
 
     <main class="login">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant&display=swap" rel="stylesheet">
-        
         <div class="container">
             <div class="login__container">
                 <h4 class="login__title">{!! App::title() !!}</h4>
