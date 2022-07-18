@@ -1,0 +1,117 @@
+.quiz {
+    background: #FBF9F8;
+    min-height: calc(100vh - 70px);
+    padding-bottom: 20px;
+    &__container {
+        width: 447px;
+        margin: auto;
+        @media all and (max-width: 600px) {
+            width: calc(100% - 30px);
+        }
+        @media all and (max-width: 375px) {
+            width: 100%;
+        }
+    }
+    &__title {
+        margin-bottom: 52px;
+        padding-top: 100px;
+        text-transform: none;
+    }
+    &__fields {
+        width: 320px;
+        margin: 20px auto 0;
+        @media all and (max-width: 350px) {
+            width: 280px;
+        }
+        &_submit {
+            box-sizing: border-box;
+            width: 320px;
+            display: block;
+            margin: 40px auto 0;
+            @media all and (max-width: 375px) {
+                width: 280px;
+            }
+        }
+    }
+    &__field {
+        margin-bottom: 20px;
+        position: relative;
+        &_title {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: #686563;
+            margin-bottom: 15px;
+        }
+        &_radio {
+            label {
+                width: 150px;
+                height: 40px;
+                background: #FFFFFF;
+                border: 1px solid #DCD9D7;
+                box-sizing: border-box;
+                border-radius: 2px;
+                display: inline-block;
+                text-align: center;
+                line-height: 40px;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 13px;
+                color: #686563;
+                text-transform: capitalize;
+
+                @media all and (max-width: 375px) {
+                    width: 130px;
+                }
+            }
+        }
+        &_choose {
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+        &_show {
+            margin-top: 23px;
+            display: none;
+            &.active {
+                display: block;
+            }
+        }
+    }
+    &__separator {
+        width: 318px;
+        height: 0px;
+        opacity: 0.1;
+        border: 1px solid #726364;
+        transform: rotate(180deg);
+        margin: 30px 0;
+
+        @media all and (max-width: 375px) {
+            width: 280px;
+        }
+    }
+    .select {
+        margin-bottom: 20px;
+    }
+    .field__radio:checked {
+        & + label  {
+            background: #E7DED8;
+            border: 1px solid #DCD9D7;
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
+    }
+    .skip {
+        text-align: center;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        color: #686563;
+        margin: 20px 0;
+        cursor: pointer;
+    }
+    .holded {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+}

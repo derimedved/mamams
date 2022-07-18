@@ -1,0 +1,81 @@
+.specialists{
+    position: relative;
+    h3{
+        text-align: center;
+        text-transform: uppercase;
+    }
+    &__wrap {
+        &-content{
+            margin: 50px 0 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            @media screen and (max-width: 1300px){
+                justify-content: space-between;
+            }
+            @media screen and (max-width: 767px){
+                margin: 20px 0 40px;
+            }
+        }
+        &_photo {
+            overflow: hidden;
+            width: 30%;
+            min-width: 90px;
+            max-width: 120px;
+        }
+    }
+    .accordion_desktop{
+        width: 42.8%;
+        @media screen and (max-width: 1300px){
+            width: 47%;
+        }
+        @media screen and (max-width: 1050px){
+            width: 70%;
+            margin: 10px auto 17px;
+        }
+        @media screen and (max-width: 767px){
+            width: 100%;
+        }
+       & .accordion{
+        &__item-main{
+            background: $light-brown;
+            @media screen and (max-width: 768px){
+                background: #F7F2EF;
+                width: 100%;
+            }
+        }
+        &__item-main-description{
+            @media screen and (max-width: 1300px){
+                padding: 11px 0 11px 10px;
+            }
+            @media screen and (max-width: 768px){
+                width: 100%;
+                padding: 11px 0 11px 11px;
+            }
+            p{
+                @media screen and (max-width: 768px){
+                    line-height: 15px;
+                    width: 85%;
+                }
+            }
+        }
+        &__open-btn{
+            display: none;
+            @media screen and (max-width: 768px){
+                display: block;
+            }
+            &_active{
+                transform: translate(0, -50%) rotate(180deg);
+            }
+        }
+       }
+    }
+   
+    .pos-element__pos-right{
+        top: 0;
+        @media screen and (max-width: 768px){
+            display: none;
+        }
+    }
+    
+}

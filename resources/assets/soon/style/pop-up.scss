@@ -1,0 +1,197 @@
+.pop-up{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $light-brown;
+    border-radius: 4px;
+    display: none;
+    @media screen and (max-width: 768px){
+        top: 40%;
+    }
+    &_active{
+        display: flex !important;
+    }
+}
+.pop-up__close{
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    position: absolute;
+    top: -11px;
+    right: -30px;
+    cursor: pointer;
+    @media screen and (max-width: 450px){
+        top: -15px;
+        right: 0px;
+    }
+    &:after, &:before{
+        width: 20px;
+        height: 1px;
+        background: #fff;
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+    }
+    &::after{
+        transform: rotate(45deg);
+    }
+    &::before{
+        transform: rotate(-45deg);
+    }
+}
+.specialists-pop-up{
+    justify-content: space-between;
+    padding: 23px 39px 50px 30px;
+    width: 45.2%;
+    z-index: 5;
+    transition: 0.3s all;
+    @media screen and (max-width: 1000px){
+        width: 70%;
+    }
+    &_active{
+        display: flex;
+    }
+    &__photo{
+        width: 19%;
+        img{
+            width: 100%;
+        }
+    }
+    &__wrap{
+        width: 77%;
+    }
+    &__title{
+        h5{
+            line-height: 24px;
+            text-align: left
+        }
+        p{
+            @include fontz (25px, normal, normal);
+            font-size: 16px;
+            color: #6F6E6E;
+        }
+    }
+    &__description{
+        >:nth-child(1){
+            @include fontz (18px, 500, normal);
+            font-size: 13px;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #726364;
+            margin-bottom: 12px;
+        }
+        :nth-child(2){
+            font-size: 15px;
+            @include fontz (24px, normal, normal);
+        }
+        li{
+            position: relative;
+            padding-left: 10px;
+            &:after{
+                position: absolute;
+                content:  "";
+                width: 4px;
+                height: 1px;
+                background: #232120;
+                left: 0px;
+                top: 50%;
+                transform: translate(0, -50%);
+            }
+        }
+    }
+   
+}
+.pop-up-remind{
+    width: 31%;
+    background: #fff;
+    font-size: 28px;
+    text-align: center;
+    @include fontz (34px, normal, normal);
+    letter-spacing: 0.01em;
+    padding: 116px 136px 120px;
+    z-index: 10;
+    min-width: 450px;
+    @media screen and (max-width: 800px){
+        padding: 80px 80px 80px;
+    }
+    @media screen and (max-width: 700px){
+        padding: 60px 50px 70px;
+        min-width: 60%;
+    }
+    @media screen and (max-width: 450px){
+        min-width: 63%;
+    }
+    flex-direction: column;
+    p{
+        @include fontz (34px, normal, normal);
+        font-size: 28px;
+        text-align: center;
+        letter-spacing: 0.01em;
+        font-family: 'FontsFree', sans-serif;
+    }
+    form{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 40px;
+        @media screen and (max-width: 700px){
+            margin-top: 26px;
+        }
+        input{
+            background: $light-brown;
+            border-radius: 2px;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            margin-right: 6px;
+            @include fontz (16px, normal, normal);
+            font-size: 14px;
+            @media screen and (max-width: 700px){
+                margin-bottom: 20px;
+                width: 100%;
+            }
+            &::placeholder{
+                @include fontz (16px, normal, normal);
+                font-size: 14px;
+            }
+
+            
+        }
+        .double-btn_red{
+            @media screen and (max-width: 700px){
+                width: 100%;
+            }
+        }
+    }
+}
+.pop-up-thank-you{
+    min-width: 500px;
+    padding: 0px 0px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    @media screen and (max-width: 700px){
+        min-width: 75%;
+    }
+    @media screen and (max-width: 500px){
+        min-width: 85%;
+        padding: 60px 20px 52px;
+    }
+    span{
+        @include fontz (21px, normal, normal);
+        font-size: 14px;
+        text-align: center;
+        color: $body-font-color;
+        margin: 16px 0 28px;
+        width: 60%;
+        @media screen and (max-width: 500px){
+            width: 90%;
+        }
+    }
+    .double-btn_red{
+        padding: 15px 25px 14px;
+    }
+}

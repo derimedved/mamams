@@ -1,0 +1,48 @@
+.text-page {
+  padding: 30px 0 80px;
+}
+.text-page h1,
+.text-page h2,
+.text-page h3,
+.text-page h4,
+.text-page h5,
+.text-page h6 {
+  margin: 0 0 1em;
+}
+.text-page p,
+.text-page ul,
+.text-page ol {
+  margin: 0 0 1.5em;
+}
+.text-page ul li {
+  font-size: 14px;
+  line-height: 150%;
+  padding-left: 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+.text-page ul li:before {
+  position: absolute;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 100%;
+  content: "";
+  background: #232120;
+  top: 9px;
+}
+.text-page ol {
+  list-style: decimal;
+  margin-left: 17px;
+}
+.text-page ol li {
+  margin: 0 0 10px;
+}
+.text-page .wp-block-image {
+  margin: 0 0 2rem;
+}
+.text-page .wp-block-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

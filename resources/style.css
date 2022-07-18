@@ -1,0 +1,212 @@
+/*
+Theme Name:         mamams
+Theme URI:          https://roots.io/sage/
+Description:        Sage is a WordPress starter theme.
+Version:            9.0.10
+Author:             Roots
+Author URI:         https://roots.io/
+Text Domain:        sage
+
+License:            MIT License
+License URI:        http://opensource.org/licenses/MIT
+*/
+
+.loading {
+	position: relative;
+}
+.loading * {
+	opacity: .7;
+}
+.loading:after {
+	content: "";
+	display: block;
+	width: 44px;
+	height: 44px;
+	background: url(assets/img/spinner.svg) center no-repeat;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -15px;
+	margin-left: -15px;
+	z-index: 16;
+	background-size: contain;
+	animation:spin .7s linear infinite;
+	-webkit-animation:spin .7s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.status {
+	margin-bottom: 30px;
+    text-align: center;
+    font-size: 12px;
+}
+.status .error {
+	color: #e96387;
+}
+.status .success {
+	color: #45ac6f;
+}
+
+.wpcf7-form {
+	position: relative;
+}
+.wpcf7-form .wpcf7-not-valid-tip {
+	position: absolute !important;
+    font-size: 12px;
+	color: #e96387;
+}
+.b_block_form .wpcf7-form .wpcf7-not-valid-tip {
+	position: relative!important;
+	width: 100%;
+	text-align: left;
+}
+.wpcf7 .ajax-loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+}
+.header .menu .sub-menu {
+	left:calc(30px + 50%);
+    transform: translateX(-50%);
+    white-space: nowrap !important;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+}
+
+.profile-wrapper .themes-list .themes-item {
+	cursor: pointer;
+	transition: all .2s ease;
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-ms-transition: all .2s ease;
+	-o-transition: all .2s ease;
+}
+.profile-wrapper .themes-list .themes-item input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+.profile-wrapper .themes-list .themes-item.active,
+.profile-wrapper .themes-list .themes-item:hover {
+	background-color: transparent;
+	color: #fff;
+	border-color: #fff;
+}
+
+/* .pop-up.quick-view iframe {
+	width: 100%;
+} */
+.pop-up.quick-view .course-item iframe {
+	height: auto;
+	width: 100%;
+}
+
+.accordion__open-btn {line-height: 0;}
+
+.video-play-button {
+	height: 44px;
+    width: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #fff;
+    border-radius: 50%;
+	position: absolute;
+	display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+.video-play-button svg {
+	fill: #fff;
+    height: 18px;
+    width: 16px;
+    margin-right: -4px;
+}
+
+.pop-up-thank-you a.double-btn {
+    max-width: 300px;
+}
+div.dynamic_button {
+	padding: 0;
+    background: transparent;
+}
+.mw-900 {
+	max-width: 900px;
+	width: 100%;
+	margin: auto;
+}
+
+#discover .fancybox-button svg path {fill:#fff;}
+/* body.admin-bar .header {top: 32px;} */
+@media screen and (min-width: 768px) {
+	.mob-only {
+		display: none;
+	}
+}
+@media screen and (max-width: 768px) {
+	.dt-only {display: none;}
+}
+
+
+p.login-subtitle {
+	font-family: 'Work Sans';
+
+	font-size: 14px;
+	line-height: 140%;
+	text-align: center;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	color: #726364;
+	margin-bottom: 30px;
+}
+
+.b_block_form
+.wpcf7-response-output {
+	display: none !important;
+}
+
+
+
+.form-wrap-checkout
+.input-wrap {
+	position: relative;
+}
+.input-wrap label.error {
+	position: absolute;
+	left: 17px;
+	top: -3px;
+	color: red;
+	font-size: 10px;
+}
+
+@media (max-width:768px) {
+	.input-wrap label.error {
+		position: static;
+		line-height: normal;
+	}
+}
+
+
+p.info.info2 {
+	text-align: center !important;
+	margin: 10px 0 0;
+	font-size: 11px !important;
+	width: 100%;
+	text-transform: lowercase !important;
+}
+

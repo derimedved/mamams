@@ -1,0 +1,182 @@
+.footer{
+    background: #5F5656;
+    padding: 45px 0 24px;
+    position: relative;
+    z-index: 2;
+    @media screen and (max-width: 767px){
+        padding: 20px;
+    }
+    &__wrap{
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        @media screen and (max-width: 1000px){
+            justify-content: center;
+         }
+         @media screen and (max-width: 767px){
+            justify-content: flex-start;
+         }
+        >:nth-child(1){
+            width: 11%;
+            @media screen and (max-width: 767px){
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            a{
+                display: flex;
+            }
+        }
+    }
+    
+    &__logo{
+        width: 60px;
+        @media screen and (max-width: 767px){
+            width: 40px;
+            position: absolute;
+            
+        }
+
+    }
+    &__wrap-link{
+        display: flex;
+        width: 45%;
+        justify-content: flex-start;
+        @media screen and (max-width: 1000px){
+            width: 64%;
+            justify-content: center;
+         }
+         @media screen and (max-width: 767px){
+           width: 100%;
+           justify-content: flex-start;
+           margin-top: 50px;
+        }
+        @media screen and (max-width: 500px){
+            margin-top: 5px;
+         }
+    }
+    &__wrap-list{
+        width: 38%;
+        margin-bottom: 80px;
+        @media screen and (max-width: 760px){
+            margin-bottom: 35px;
+            padding-top: 35px;
+        }
+        @media screen and (max-width: 500px){
+            width: 50%;
+            padding-top: 75px;
+         }
+        p{
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #BEB9B9;
+            @include fontz (14px, 500, normal);
+        }
+    }
+    &__list-wrap{
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+    &__list-item{
+        @include fontz (36px, normal, normal);
+        font-size: 13px;
+        color: #FAFAFA;
+        margin-bottom: 5px;
+        transition: 0.3s all;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    .socila-wrap__item{
+        svg{
+            path{
+                fill:#BEB9B9;;
+            }
+            rect{
+                fill:#BEB9B9;;
+            }
+        }
+        &:hover{
+            svg{
+                path{
+                    fill: #FFFFFF;
+                }
+                rect{
+                    fill: #FFFFFF;
+                }
+            }
+        }
+    }
+    &__form{
+        margin: 20px 0 32px;
+        input{
+            background: #706262;
+            border: 1px solid #706262;
+            box-sizing: border-box;
+            border-radius: 2px;
+            font-size: 13px;
+            @include fontz (13px, normal, normal);
+            padding: 11px 16px 12px;
+            margin-right: 5px;
+            width: 273px;
+            box-sizing: border-box;
+            @media screen and (max-width: 470px){
+                width: 60%;
+             }
+            &:focus{
+                background: #FFFFFF;
+                border: 1px solid #958585;
+            }
+            &::placeholder{
+                font-size: 13px;
+                color: #FFFFFF;
+                @include fontz (15px, normal, normal);
+                @media screen and (max-width: 370px){
+                    font-size: 11px;
+                 }
+
+            }
+        }
+        button{
+            background: #827474;
+            border-radius: 2px;
+            padding: 13px 27px;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            @include fontz (14px, 500, normal);
+            @media screen and (max-width: 374px){
+                padding: 13px 20px;
+           }
+        }
+    }
+    &__signature{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 12px;
+        color: #8F8888;
+        @include fontz (32px, normal, normal);
+    }
+    &__wrap-social{
+        width: 390px;
+        // @media screen and (max-width: 1000px){
+        //     width: 64%;
+        //     justify-content: center;
+        //  }
+        @media screen and (max-width: 760px){
+           width: auto;
+           padding-top: 0;
+           text-align: left;
+        }
+        @media screen and (max-width: 760px){
+             width: 100%;
+             margin: 0 0 43px;
+        }
+    }
+}

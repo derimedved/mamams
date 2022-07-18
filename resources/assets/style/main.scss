@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'Work-Sans';
+    src: url('../fonts/WorkSans-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Work-Sans';
+    src: url('../fonts/WorkSans-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'FontsFree';
+    src: url('../fonts/FontsFree-Net-zxss.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'MarckScript';
+    src: url('../fonts/MarckScript-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+$maxWidth: 1440;
+@mixin adaptive-fonts($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $addMobSize: $addSize + $addSize * 0.7;
+    @media (max-width: 767px) {
+        font-size: calc(#{$mobSize + px} + #{$addMobSize} * ((110vw - 320px) / #{$maxWidth}));
+    }
+    @media (min-width: 767px) {
+        font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw) / #{$maxWidth}));
+    }
+}
+@mixin fontz ($lh,$w, $s){
+    line-height: $lh;
+    font-weight: $w;
+    font-style: $s;
+}
+$light-brown: #FBF9F8;
+$Brown-subheader-color: #726364;
+$body-font-color: #686563;
+$fonts-color: #232120;
+$cta-color: #CB5050;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body{
+    color: $fonts-color;
+    font-size: 14px;
+    @include fontz (150%, normal, normal);
+    font-family: 'Work-Sans', sans-serif;
+    position: relative;
+}
+h1{
+    @include adaptive-fonts(60, 35);
+    font-family: 'FontsFree', sans-serif;
+    @include fontz (68px, 400, normal);
+    text-align: center;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    @media screen and (max-width: 767px){
+        line-height: 42px;
+    }
+}
+h2{
+    font-family: 'FontsFree', sans-serif;
+    @include adaptive-fonts(42, 26);
+    line-height: 50px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    @media screen and (max-width: 767px){
+        line-height: 38px;
+    }
+}
+h3{
+    font-family: 'FontsFree', sans-serif;
+    @include adaptive-fonts(38, 24);
+    line-height: 42px;
+    text-align: center;
+    @media screen and (max-width: 767px){
+        line-height: 38px;
+    }
+}
+h4{
+    text-align: center;
+    text-transform: uppercase;
+    @include adaptive-fonts(32, 26);
+    @include fontz (38px, normal, normal);
+    font-family: 'FontsFree', sans-serif;
+
+    @media screen and (max-width: 767px){
+        line-height: 32px;
+    }
+}
+h5{
+    text-align: center;
+    @include adaptive-fonts(24, 16);
+    @include fontz (32px, normal, normal);
+    font-family: 'FontsFree', sans-serif;
+}
+h6{
+    @include adaptive-fonts(20, 26);
+    text-align: center;
+
+}
+.container{
+    max-width: 1200px;
+    margin: auto;
+    @media screen and (max-width: 1300px){
+       width: 900px;
+    }
+    @media screen and (max-width: 1000px){
+        width: 90%;
+     }
+     @media screen and (max-width: 450px){
+        width: 96%;
+     }
+}
+.section{
+    padding: 110px 0;
+    @media screen and (max-width: 1300px){
+        padding: 60px 0;
+     }
+}

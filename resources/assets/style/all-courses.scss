@@ -1,0 +1,212 @@
+.all-courses{
+    background: $light-brown;
+    padding-top: 40px;
+    .banner-block{
+        position: relative;
+        padding: 40px 0 120px;
+        .pos-element__pos-left{
+            top: 0;
+            @media screen and (max-width: 1000px){
+                display: none;
+            }
+        }
+        &__second-banner {
+            margin-top: 30px;
+        }
+        &__first-banner {
+            margin: 40px auto 30px;
+        }
+        &__bg{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background: #FFFFFF;
+            border-radius: 4px;
+            align-items: center;
+            @media screen and (max-width: 1000px){
+                flex-direction: column;
+            }
+            .banner-block__img{
+                width: 51%;
+                position: relative;
+                height: 420px;
+                overflow: hidden;
+                @media all and (max-width: 1300px) and (min-width: 1000px) {
+                    height: 350px;
+                }
+                // @media screen and (max-width: 1300px){
+                //    height: 313px;
+                // }
+                @media screen and (max-width: 1000px){
+                    width: 100%;
+                    height: auto;
+                }
+                img{
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    transform: scale(1) translate(0, -50%);
+                    transition: all 1.5s;
+                    @media screen and (max-width: 1000px){
+                        position: static;
+                        transform: scale(1) translate(0, 0%);
+                    }
+                }
+            }
+            .banner-block__content{
+                display: flex;
+                flex-direction: column;
+                align-items: baseline;
+                position: static;
+                text-align: left;
+                padding: 0px 70px 0px 85px;
+                width: 49%;
+                box-sizing: border-box;
+                transform:translate(0,0);
+                -webkit-transform:translate(0,0);
+                -moz-transform:translate(0,0);
+                -ms-transform:translate(0,0);
+                -o-transform:translate(0,0);
+                @media screen and (max-width: 1300px){
+                    padding: 0px 40px 0px 40px;
+                }
+                 @media screen and (max-width: 1000px){
+                    width: 100%;
+                    padding: 30px 40px 30px 40px;
+                }
+                @media screen and (max-width: 500px){
+                    padding: 30px 20px 40px 20px;
+                }
+                h4, p {
+                    color: #232120;
+                    width: 80%;
+                    text-align: left;
+                    @media screen and (max-width: 1300px){
+                        width: 100%;
+                    }
+                }
+                p{
+                    margin: 7px 0 34px;
+                    @media screen and (max-width: 1300px){
+                        margin: 7px 0 20px;
+                    }
+                }
+                h4{
+                    margin-top: 24px;
+                    @media screen and (max-width: 1300px){
+                        margin-top: 13px
+                     }
+                }
+                .banner-block__wrap-btn{
+                    @media screen and (max-width: 400px){
+                        justify-content: space-between;
+                        padding: 0;
+                        width: 100%;
+                    } 
+                    button{
+                        @media screen and (max-width: 400px){
+                            margin: 0 0 20px 0;
+                        } 
+                    }
+                }
+                  
+            }
+            &:hover {
+                .banner-block__img img {
+                    transform: scale(1.2) translate(0, -50%);
+                    @media all and (max-width: 1000px) {
+                        transform: scale(1.2) translate(0, 0);
+                    }
+                }
+            }
+        }
+        
+        &__img-purchased{
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 5;
+
+            @media all and (max-width: 1300px) and (min-width: 1000px) {
+                top:40px;
+            }
+        }
+        &_purchased{
+            .video-blocked{
+                display: none;
+            }
+            .banner-block__img-purchased{
+                display: inline-block;
+            }
+            .banner-block__wrap-btn{
+                display: none;
+            }
+            .progress-block{
+                display: flex;
+            }
+        }
+    }
+    &__title{
+        text-align: center;
+        h3{
+            text-transform: uppercase;
+        }
+        p{
+            @include fontz (150%, normal, normal);
+            font-size: 13px;
+            color: $body-font-color;
+            margin-top: 18px;
+        }
+    }
+    
+    .coming-soon, .specialists{
+        background: #fff;
+    }
+    .advantages{
+        .all-courses__title-p{
+            text-align: left;
+        }
+    }
+    .specialists.section{
+            padding-top: 51px;
+        
+        .all-courses__title-p{
+            margin-bottom: 18px;
+        }
+    }
+    .advantages__first-item{
+        padding-top: 18px;
+    }
+    &__title-p{
+        text-transform: uppercase;
+        color: $body-font-color;
+        font-size: 12px;
+        @include fontz (14px, 500, normal);
+        @media screen and (max-width: 1300px){
+            display: none;
+        }
+    }
+    &.quick-view {
+        .banner-block__img-purchased {
+            position: relative;
+            top: 0;
+            left: 0;
+            display: inline-block;
+        }
+    }
+}
+.video-blocked{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 44px;
+    height: 44px;
+    z-index: 4;
+    display: block;
+    @media screen and (max-width: 1000px){
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+     }
+}

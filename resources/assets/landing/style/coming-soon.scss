@@ -1,0 +1,94 @@
+.coming-soon{
+    position: relative;
+    background: $light-brown;
+    h3{
+        letter-spacing: 0.01em;
+    }
+    &__wrap{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 60px;
+    }
+    .pos-element__pos-right{
+        top: 91px;
+        img{
+            width: auto;
+            height: 430px;
+        }
+        @media screen and (max-width: 1300px){
+            display: none;
+        }
+    }
+}
+.coming-soon-item{
+    position: relative;
+    width: 49%;
+    margin-bottom: 50px;
+    overflow: hidden;
+    @media screen and (max-width: 1299px){
+        width: 100%;
+        margin-bottom: 0;
+        overflow: hidden;
+    }
+    @media all and (max-width: 560px){
+        height: 400px;
+    }
+    img{
+        width: 100%;
+        transform: scale(1);
+        transition: all 1.3s;
+        @media screen and (max-width: 768px){
+            width: auto !important;
+            height: 100%;
+        }
+    }
+    &:hover img {
+        transform: scale(1.3);
+    }
+    &__content{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #FFFFFF;
+        width: 69%;
+        @media all and (max-width: 560px) {
+            width: 100%;
+        }
+        h4 {
+            @media all and (max-width: 560px) {
+                font-size: 18px;
+            }
+        }
+        button {
+            @media all and (max-width: 560px) {
+                padding: 10px 0 9px;
+            }
+        }
+    }
+    p{
+        width: 84%;
+        font-size: 14px;
+        text-align: center;
+        color: $light-brown;
+        @include fontz (21px, normal, normal);
+        margin: 12px auto 30px;
+        @media screen and (max-width: 767px){
+            margin: 12px auto 20px;
+            width: 71%;
+            // color: $Brown-subheader-color;
+        }
+        @media all and (max-width: 560px) {
+            width: 90%;
+        }
+    }
+}
+.owl-carousel-2 {
+    margin-bottom: 30px;
+    .owl-dots {
+        margin-top: 20px;
+    }
+}
