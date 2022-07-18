@@ -16,7 +16,7 @@ if ($type=='order') {
     $paypal = new App\PayPalHandler();
     $resp = $paypal->captureOrder($token);
 
-  //  print_r($resp);
+    print_r($resp);
 
     if($resp&&$resp['status']=='COMPLETED') {
         // success

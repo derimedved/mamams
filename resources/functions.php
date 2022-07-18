@@ -126,26 +126,24 @@ add_action('nsl_login', function ($user_id, $provider) {
 //     }
 // });
 
+add_action('init', function(){
+    if ($_GET['vimeo']) {
+        $q = new WP_Query([
+            'post_type' => 'lp_lesson',
+            'post_status' => 'any',
+            'posts_per_page' => -1
+        ]);
+
+        while ($q->have_posts()) {
+            $q->the_post();
+            $lesson_id = get_the_id();
+            if(get_field('video',$lesson_id)) {
 
 
-//add_action('init', function(){
-//    if ($_GET['vimeo']) {
-//        $q = new WP_Query([
-//            'post_type' => 'lp_lesson',
-//            'post_status' => 'any',
-//            'posts_per_page' => -1
-//        ]);
-//
-//        while ($q->have_posts()) {
-//            $q->the_post();
-//            $lesson_id = get_the_id();
-//            if(get_field('video',$lesson_id)) {
-//
-//
-//                preg_match('/src="(.+?)"/', wp_oembed_get(get_field('video',$lesson_id)), $matches);
-//                $video = $matches[1];
-//                update_field('video_embed', $video, $lesson_id);
-//            }
-//        }
-//    }
-//});
+                preg_match('/src="(.+?)"/', wp_oembed_get(get_field('video',$lesson_id)), $matches);
+                $video = $matches[1];
+                update_field('video_embed', $video, $lesson_id);
+            }
+        }
+    }
+});

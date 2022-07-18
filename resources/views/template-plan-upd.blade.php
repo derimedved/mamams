@@ -3,6 +3,76 @@
  * template name: Updated checkout
  */
 
+
+?>
+
+
+<?php
+
+if ($_GET['pp_tt']) {
+    $PayPalHandler = new App\PayPalHandler();
+
+
+    //655565663D7627343
+  //  print_r($PayPalHandler->getOrder('1BX60239648871628'));
+
+
+$pp_client_id= get_field('paypal_client_id','options');
+$pp_secret   = get_field('paypal_client_secret','options');
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/oauth2/token');
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERPWD, $pp_client_id.':'.$pp_secret);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+    'Content-Type'=> 'application/x-www-form-urlencoded',
+    'grant_type'=>'client_credentials',
+
+)));
+
+$res_authcode = curl_exec($ch);
+    curl_close($ch);
+echo '<pre>';
+$access_token =  json_decode($res_authcode)->access_token;
+   //print_r($access_token);
+
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/checkout/orders/8AM73603MN3053607');
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+
+  //  curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+       // 'Paypal-Partner-Attribution-Id: Beomi',
+        'Content-Type: application/json',
+        "Authorization: Bearer " . $access_token,
+
+    ));
+
+    $orders = curl_exec($ch);
+    curl_close($ch);
+
+    $result = json_decode($orders);
+
+    foreach ($result->purchase_units as $unit) {
+        foreach ($unit->payments->captures as $capture) {
+            echo $capture->status;
+        }
+    }
+
+
+
+
+
+    die();
+}
+
 ?>
 
 <script>
