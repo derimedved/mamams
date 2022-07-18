@@ -142,12 +142,14 @@ echo template('partials.header');
 <!--                <a href="#"><img src="--><?//= get_template_directory_uri() ?><!--/assets/img/icon-402.svg" alt=""></a>-->
               </div>
               <div style="padding:56.25% 0 0 0;position:relative;">
-                <?php get_field('top_video'); ?>
+                <?= get_field('top_video'); ?>
               </div>
               <style>
                 .video-wrap iframe {position:absolute;top:0;left:0;width:100%;height:100%;"}
               </style>
-
+              <div class="video-wrap__play">
+                <!-- <img src="<?= get_template_directory_uri(); ?>/assets/img/play.svg" alt=""> -->
+              </div>
             </div>
           <?php endif; ?>
 
@@ -332,104 +334,104 @@ echo template('partials.header');
     <div id="course-block" class="course-block">
       <div class="course" >
         <h3>AU PROGRAMME DE CETTE FORMATION</h3>
-        <div class="course__wrap <?= $course_avaliable ?>">
-          <?php
-          if ( $curriculum ) {
-            $i=1;
-            $play_icon='<button type="button" class="video-play-button"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100"><path d="M79.674,53.719c2.59-2.046,2.59-5.392,0-7.437L22.566,1.053C19.977-0.993,18,0.035,18,3.335v93.331c0,3.3,1.977,4.326,4.566,2.281L79.674,53.719z"/></svg></button>';
-            $block_icon=sprintf('<div class="video-blocked"><img src="%s/assets/img/blocked.svg" alt=""></div>',get_template_directory_uri());
+          <div class="course__wrap <?= $course_avaliable ?>">
+              <?php
+              if ( $curriculum ) {
+                  $i=1;
+                  $play_icon='<button type="button" class="video-play-button"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100"><path d="M79.674,53.719c2.59-2.046,2.59-5.392,0-7.437L22.566,1.053C19.977-0.993,18,0.035,18,3.335v93.331c0,3.3,1.977,4.326,4.566,2.281L79.674,53.719z"/></svg></button>';
+                  $block_icon=sprintf('<div class="video-blocked"><img src="%s/assets/img/blocked.svg" alt=""></div>',get_template_directory_uri());
 
-              $count_lessons = 0;
-            foreach ( $curriculum as $section ) {
-              $lessons = $section->get_items();
+                  $count_lessons = 0;
+                  foreach ( $curriculum as $section ) {
+                      $lessons = $section->get_items();
 
-              $count_lessons = $count_lessons + count($lessons);
-              // Iterate over each lesson.
-              foreach ( $lessons as $lesson ) {
-                // Now you can work with each lesson, for example:
+                      $count_lessons = $count_lessons + count($lessons);
+                      // Iterate over each lesson.
+                      foreach ( $lessons as $lesson ) {
+                          // Now you can work with each lesson, for example:
 
-                // Get the lesson ID.
-                $lesson_id = $lesson->get_id();
-                $tracking_class = '';
-                $lesson_video_src = '';
-                $demo_video = '';
-                $video = '';
-                $lesson_thumb = get_field('video_thumb',$lesson_id);
+                          // Get the lesson ID.
+                          $lesson_id = $lesson->get_id();
+                          $tracking_class = '';
+                          $lesson_video_src = '';
+                          $demo_video = '';
+                          $video = '';
+                          $lesson_thumb = get_field('video_thumb',$lesson_id);
 
-                if(get_field('demo_video',$lesson_id)) {
-                  preg_match('/src="(.+?)"/', get_field('demo_video',$lesson_id), $matches);
-                  $demo_video = $matches[1];
-                }
-
-
-                if(get_field('video_embed',$lesson_id)) {
-                    $video = get_field('video_embed',$lesson_id);
-                } elseif(get_field('video',$lesson_id)) {
+                          if(get_field('demo_video',$lesson_id)) {
+                              preg_match('/src="(.+?)"/', get_field('demo_video',$lesson_id), $matches);
+                              $demo_video = $matches[1];
+                          }
 
 
-                  preg_match('/src="(.+?)"/', wp_oembed_get(get_field('video',$lesson_id)), $matches);
-                  $video = $matches[1];
-                    update_field('video_embed', $video, $lesson_id);
-                }
-                if($purchased&&$video) {
-                  $lesson_video_src=$video;
-                  $tracking_class='tracking_video';
-                }
-                if($lesson->is_preview()&&$demo_video&&!$purchased) {
-                  $lesson_video_src=$demo_video;
-                  $tracking_class='demo_video';
-                }
-                $lesson_progress = isset($course_progress) && !empty($course_progress) && array_key_exists($lesson_id,$course_progress) ? $course_progress[$lesson_id] : '';
-                $lesson_thumb = $lesson_thumb?:LP()->image( 'no-image.png' );
-                if(get_field('custom_demo_thumb',$lesson_id)) $lesson_thumb = get_field('custom_demo_thumb',$lesson_id)['sizes']['300x200'];
-                $lesson_duration = get_field('duration',$lesson_id);
-                ?>
-                <form action="#" class="course-item">
-                  <div class="mob-title">
-                    <p class="course-item__title"><span><?= $i; ?>.</span> <?= $lesson->get_title( 'display' ); ?></p>
+                          if(get_field('video_embed',$lesson_id)) {
+                              $video = get_field('video_embed',$lesson_id);
+                          } elseif(get_field('video',$lesson_id)) {
 
-                  </div>
-                  <div class="video-img">
-                    <?php if($lesson_video_src) {
-                      printf('<a class="%s"
+
+                              preg_match('/src="(.+?)"/', wp_oembed_get(get_field('video',$lesson_id)), $matches);
+                              $video = $matches[1];
+                              update_field('video_embed', $video, $lesson_id);
+                          }
+                          if($purchased&&$video) {
+                              $lesson_video_src=$video;
+                              $tracking_class='tracking_video';
+                          }
+                          if($lesson->is_preview()&&$demo_video&&!$purchased) {
+                              $lesson_video_src=$demo_video;
+                              $tracking_class='demo_video';
+                          }
+                          $lesson_progress = isset($course_progress) && !empty($course_progress) && array_key_exists($lesson_id,$course_progress) ? $course_progress[$lesson_id] : '';
+                          $lesson_thumb = $lesson_thumb?:LP()->image( 'no-image.png' );
+                          if(get_field('custom_demo_thumb',$lesson_id)) $lesson_thumb = get_field('custom_demo_thumb',$lesson_id)['sizes']['300x200'];
+                          $lesson_duration = get_field('duration',$lesson_id);
+                          ?>
+                          <form action="#" class="course-item">
+                              <div class="mob-title">
+                                  <p class="course-item__title"><span><?= $i; ?>.</span> <?= $lesson->get_title( 'display' ); ?></p>
+
+                              </div>
+                              <div class="video-img">
+                                  <?php if($lesson_video_src) {
+                                      printf('<a class="%s"
 												href="%s">%s<img src="%s" alt="" width="211" height="118"></a>',
-                        $tracking_class,
-                        $lesson_video_src,
-                        $play_icon,
-                        $lesson_thumb);
-                    } else { printf('<img src="%s" alt="thumb">',$lesson_thumb); } ?>
-                  </div>
+                                          $tracking_class,
+                                          $lesson_video_src,
+                                          $play_icon,
+                                          $lesson_thumb);
+                                  } else { printf('<img src="%s" alt="thumb">',$lesson_thumb); } ?>
+                              </div>
 
-                  <div class="course-item__content">
-                    <div class="course-item__title-wrap">
-                      <p class="course-item__title"><span><?= $i; ?>.</span> <?= $lesson->get_title( 'display' ); ?></p>
-                      <?php if($lesson_duration): ?>
-                        <div class="video-time">
-                          <img src="<?= get_template_directory_uri(); ?>/assets/img/clock-svg.svg" alt="">
-                          <span><span><?= gmdate("H:i:s", $lesson_duration);  ?></span>
-                        </div>
-                      <?php endif; ?>
-                    </div>
-                    <p class="course-item__description"><?= get_the_content(null,null,$lesson_id); ?></p>
-                    <div class="progress-block">
-                      <div class="progress-block__result-title <?= $lesson_progress ? 'progress-block__result-title_green' : ''; ?>"><span><?= $lesson_progress?:0; ?>%</span>complété</div>
-                      <div class="progress-block__progress">
-                        <span class="progress-block__progress-result progress-block__progress-result_start" style="width:<?= $lesson_progress?:0; ?>%;"></span>
-                      </div>
-                    </div>
-                  </div>
+                              <div class="course-item__content">
+                                  <div class="course-item__title-wrap">
+                                      <p class="course-item__title"><span><?= $i; ?>.</span> <?= $lesson->get_title( 'display' ); ?></p>
+                                      <?php if($lesson_duration): ?>
+                                          <div class="video-time">
+                                              <img src="<?= get_template_directory_uri(); ?>/assets/img/clock-svg.svg" alt="">
+                                              <span><span><?= gmdate("H:i:s", $lesson_duration);  ?></span>
+                                          </div>
+                                      <?php endif; ?>
+                                  </div>
+                                  <p class="course-item__description"><?= get_the_content(null,null,$lesson_id); ?></p>
+                                  <div class="progress-block">
+                                      <div class="progress-block__result-title <?= $lesson_progress ? 'progress-block__result-title_green' : ''; ?>"><span><?= $lesson_progress?:0; ?>%</span>complété</div>
+                                      <div class="progress-block__progress">
+                                          <span class="progress-block__progress-result progress-block__progress-result_start" style="width:<?= $lesson_progress?:0; ?>%;"></span>
+                                      </div>
+                                  </div>
+                              </div>
 
-                  <input type="hidden" name="progress" value="<?= $lesson_progress; ?>" />
-                  <input type="hidden" name="lesson_id" value="<?= $lesson_id; ?>" />
-                  <input type="hidden" name="course_id" value="<?= get_the_ID(); ?>" />
-                </form>
-                <?php $i++; }
-            }
-          } else {
-            echo apply_filters( 'learn_press_course_curriculum_empty', __( 'Curriculum is empty', 'learnpress' ) );
-          }
-          ?>
-        </div>
+                              <input type="hidden" name="progress" value="<?= $lesson_progress; ?>" />
+                              <input type="hidden" name="lesson_id" value="<?= $lesson_id; ?>" />
+                              <input type="hidden" name="course_id" value="<?= get_the_ID(); ?>" />
+                          </form>
+                          <?php $i++; }
+                  }
+              } else {
+                  echo apply_filters( 'learn_press_course_curriculum_empty', __( 'Curriculum is empty', 'learnpress' ) );
+              }
+              ?>
+          </div>
 
           <?php if ($count_lessons > 3) { ?>
 

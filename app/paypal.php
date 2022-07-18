@@ -401,16 +401,10 @@ class PayPalHandler
                 $links[$link->rel] = $link->href;
             }
 
-            $statuses = $this->captureOrderPayment($response->result->id);
-
-            $statuses2 = $this->captureOrder($response->result->id);
-
             $return = [
                 'status' => $response->statusCode,
                 'id' => $response->result->id,
                 'link' => $links['approve'],
-                'payment_status' => $statuses,
-                'payment_status2' => $statuses2['status']
             ];
             
             // If call returns body in response, you can get the deserialized version from the result attribute of the response
@@ -430,87 +424,13 @@ class PayPalHandler
     }
 
 
-    public function captureOrderPayment($id) {
-
-        $pp_client_id= get_field('paypal_client_id','options');
-        $pp_secret   = get_field('paypal_client_secret','options');
-
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/oauth2/token');
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_USERPWD, $pp_client_id.':'.$pp_secret);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
-            'Content-Type'=> 'application/x-www-form-urlencoded',
-            'grant_type'=>'client_credentials',
-
-        )));
-
-        $res_authcode = curl_exec($ch);
-        curl_close($ch);
-
-        $access_token =  json_decode($res_authcode)->access_token;
-
-        curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/checkout/orders/'. $id);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
-            'Content-Type: application/json',
-            "Authorization: Bearer " . $access_token,
-
-        ));
-
-        $orders = curl_exec($ch);
-        curl_close($ch);
-
-        $result = json_decode($orders);
-
-        $statuses = [];
-        foreach ($result->purchase_units as $unit) {
-            foreach ($unit->payments->captures as $capture) {
-                $statuses[] = $capture->status;
-            }
-        }
-
-        return $statuses;
-
-
-
-    }
-
 
     /**
      * This function can be used to retrieve an order by passing order Id as argument.
      */
     public function getOrder($orderId)
     {
-
-// Here, OrdersCaptureRequest() creates a POST request to /v2/checkout/orders
-// $response->result->id gives the orderId of the order created above
-        $request = new OrdersCaptureRequest($orderId);
-        print_r($request);
-
-
-        $request->prefer('return=representation');
-        try {
-            // Call API with your client and get a response for your call
-            $response = $this->client->execute($request);
-
-            // If call returns body in response, you can get the deserialized version from the result attribute of the response
-            print_r($response);
-        }catch (HttpException $ex) {
-            echo $ex->statusCode;
-            print_r($ex->getMessage());
-        }
-
-        die();
-
-
-
+        
         // $client = PayPalClient::client();
         $response = $this->client->execute(new OrdersGetRequest($orderId));
         /**

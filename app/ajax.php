@@ -651,6 +651,7 @@ class Ajax extends Controller
                     update_post_meta( $order_id, 'paypal_payment_status', $payment_status );
                 }
                 break;
+                
             default:
               // Unexpected event type
               echo 'Received unknown event type';
@@ -1269,13 +1270,6 @@ class Ajax extends Controller
 
                         if($response['id']) update_post_meta( $order->get_id(), 'paypal_order_id', $response['id'] );
 
-                        if($response['payment_status']) update_post_meta( $order->get_id(), 'paypal_payment_status', implode(',', $response['payment_status'] ));
-
-                        if($response['payment_status2']) update_post_meta( $order->get_id(), 'paypal_payment_status2', $response['payment_status2'] );
-
-
-
-
                         $data = array(
                             'update'=>true,
                             'response'=>$response,
@@ -1304,10 +1298,41 @@ class Ajax extends Controller
                 }
                 
 
+
+
+
+                if($_POST['coupon']) {
+                    // $stripe = new StripeHandler();
+                    // $allow = $stripe->checkCoupon($_POST['coupon']);
+                    $allow=false;
+                    $posts = get_posts([
+                        'post_type' => 'coupons',
+                        'numberposts' => 1,
+                        'fields' => 'ids',
+                        'meta_key'   => 'stripe_coupon_id',
+                        'meta_value' => $_POST['coupon'],
+                    ]); wp_reset_postdata(  );
+                    if($posts) {
+                        $percent_off = get_field('percent_off',$posts[0]);
+                        $allow=true;
+                        if($percent_off) {
+                            $percent_off=(int)$percent_off;
+                            $discount = ($percent_off / 100) * $premium_price;
+                            $new_price = $price - $discount;
+
+                            $format_new_price = number_format($new_price, 2, '.', '');
+                            $format_discount = number_format($discount, 2, '.', '');
+
+                        }
+                    }
+                }
+
                 $item = [
                     'title' => $premium_title,
-                    'value' => $premium_price,
+
+                    'value' => $premium_price - $discount,
                     'currency' => $currency,
+                    'd' => $discount,
                 ];
 
                 $response = $paypal->createSubscription($item,$ty_page,$c_page);
@@ -1698,7 +1723,6 @@ class Ajax extends Controller
                 wp_die();
             }
 
-           
             $email = $_POST['email'];
             $password = $_POST['password'];
             $role = $_POST['role']?:'subscriber';
@@ -1721,15 +1745,13 @@ class Ajax extends Controller
                     'user_email' => $email,
                     'role'  => $role,
                     'show_admin_bar_front' => false,
-                    'first_name' => $_POST['name'] ?? $_POST['first_name'],
+                    'first_name' => $_POST['name'],
                     'last_name' => $_POST['last_name']
                 ];
             
                 $user_id = wp_insert_user($user_data);
                 update_field('pregnant', $_POST['pregnant'], 'user_' . $user_id);
                 update_field('phone', $_POST['phone'], 'user_' . $user_id);
-                update_field('age', $_POST['age'], 'user_' . $user_id);
-             
 
 
                 if($user_id) {
