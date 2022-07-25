@@ -68,9 +68,10 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    @endif
+
                                     <div class="login__separator signup__separator"><span>OU CRÉER MON COMPTE</span></div>
 
+                                    @endif
 
                                     <div class="login__fields  ">
                                         <div class="form-wrap form-wrap-checkout">
