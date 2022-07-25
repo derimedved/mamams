@@ -53,7 +53,7 @@
                                 <div class="form-wrap form-wrap-payment">
 
                                     <h4 class="login__title">S’inscrire</h4>
-                                    @if ($acf_options->social_login_page)
+                                    @if ($acf_options->social_login_page0)
                                         <div class="login__social">
                                             <div class="login__social__block login-social__block_google">
                                                 <a href="{{ get_permalink($acf_options->social_login_page) }}?loginSocial=google" rel="nofollow" aria-label="Continue with <b>Google</b>" data-plugin="nsl" data-action="connect" data-redirect="{{ get_permalink(340) }}" data-provider="google">
