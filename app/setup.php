@@ -130,7 +130,10 @@ add_action('wp_enqueue_scripts', function () {
 
      }
 
-    if(basename(get_page_template()) == "template-plan-upd.blade.php" || basename(get_page_template()) == "template-registration-upd.blade.php" ){
+    if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
+        basename(get_page_template()) == "template-registration-upd.blade.php" ||
+        basename(get_page_template()) == "template-registration-valid.blade.php"
+    ){
 
         wp_enqueue_script('jqueryvalidation',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', array(), false, 1);
         wp_enqueue_script('jqueryvalidation_fr',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/localization/messages_fr.js', array(), false, 1);
@@ -140,7 +143,9 @@ add_action('wp_enqueue_scripts', function () {
     }
 
 
-    if(  basename(get_page_template()) == "template-registration-upd.blade.php" ) {
+    if(  basename(get_page_template()) == "template-registration-upd.blade.php" ||
+        basename(get_page_template()) == "template-registration-valid.blade.php"
+    )  {
         $scripts[]="assets/js/registration.js?v=".rand(0,9999);
     }
 
