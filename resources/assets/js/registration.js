@@ -78,4 +78,32 @@
 
     }
 
+
+    //$('.recommend-form').validate();
+
+
+
+    $('.recommend-form').validate({
+
+
+
+        submitHandler: function(form) {
+
+            $('._form_13 [name="email"]').val($('#email-10').val());
+            $("#_form_13_submit").click();
+            $('#email-10').val('')
+        }
+    });
+
+
+    
+    $('.fake-code').click(function(e){
+        e.preventDefault();
+        var val = $('#code').val();
+        if (val === 'EXCLEDFM_22') {
+            location.href = "/create-account?excl=1"
+        } else
+            $('.fake-result').html("le code n'est pas valide")
+    })
+
 })(jQuery);

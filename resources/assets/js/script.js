@@ -962,5 +962,13 @@ $(document).on('click', '.input-wrap-radio-2', function (e){
   $('.tel-mask').mask('+00 (0) 00 00 00 00');
 
 
+  $('.sign-up-new .wrap-img-form .right .input-wrap-select select').niceSelect();
 
+  $(document).on('click', '.sign-up-new .wrap-img-form .right .input-wrap-check .wrap input', function (e){
+    if($(this).prop("checked")){
+      $('.sign-up-new .wrap-img-form .right .input-wrap-hide').slideDown();
+    }else{
+      $('.sign-up-new .wrap-img-form .right .input-wrap-hide').slideUp();
+    }
+  });
 });
