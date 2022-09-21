@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="55148f6f-a98f-471f-a1e1-ecec4b1cc2d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/app/ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ajax.php" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/app/paypal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/paypal.php" afterDir="false" />
 <<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/resources/assets/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/profile.css" afterDir="false" />
@@ -22,6 +23,22 @@
       <change beforePath="$PROJECT_DIR$/resources/assets/soon/video/site_20sec_draft.mp4" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/assets/video/site_20sec_draft.mp4" beforeDir="false" />
 >>>>>>> Stashed changes
+=======
+      <change beforePath="$PROJECT_DIR$/app/setup.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/setup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/js/checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/js/checkout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/js/jquery.mask.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/js/jquery.mask.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/learnpress/archive-course.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/learnpress/archive-course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/learnpress/single-course.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/learnpress/single-course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/head.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template-bonheur.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template-bonheur.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template-login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template-login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template-profile-info.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template-profile-info.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template-quiz.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template-quiz.blade.php" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +55,7 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/Plan.php">
@@ -48,6 +66,8 @@
           </provider>
         </entry>
       </file>
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       <file pinned="true" current-in-tab="false">
         <entry file="remoteDeploymentFS://&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-levenement.blade.php">
@@ -62,10 +82,15 @@
         <entry file="remoteDeploymentFS://&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-bonheur.blade.php">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             <state relative-caret-position="178">
               <caret line="289" column="14" lean-forward="true" selection-start-line="289" selection-start-column="14" selection-end-line="289" selection-end-column="14" />
 =======
             <state relative-caret-position="-441">
+              <caret line="273" column="133" selection-start-line="273" selection-start-column="133" selection-end-line="273" selection-end-column="133" />
+>>>>>>> Stashed changes
+=======
+            <state relative-caret-position="-94">
               <caret line="273" column="133" selection-start-line="273" selection-start-column="133" selection-end-line="273" selection-end-column="133" />
 >>>>>>> Stashed changes
             </state>
@@ -88,6 +113,7 @@
       </file>
       <file pinned="false" current-in-tab="false">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
         <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/Agreement.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -107,6 +133,8 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         <entry file="file://$PROJECT_DIR$/app/setup.php">
           <provider selected="true" editor-type-id="text-editor" />
@@ -283,9 +311,13 @@
       <workItem from="1663580466619" duration="369000" />
       <workItem from="1663659095580" duration="2813000" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <workItem from="1663670215684" duration="2047000" />
 =======
       <workItem from="1663670215684" duration="1179000" />
+>>>>>>> Stashed changes
+=======
+      <workItem from="1663670215684" duration="1632000" />
 >>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="registration valid">
@@ -321,6 +353,7 @@
   </component>
   <component name="TimeTrackingManager">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="38976000" />
   </component>
   <component name="ToolWindowManager">
@@ -336,6 +369,14 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28612304" />
 >>>>>>> Stashed changes
+=======
+    <option name="totallyTimeSpent" value="38561000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28612304" />
+>>>>>>> Stashed changes
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -349,7 +390,11 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32891566" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <window_info anchor="bottom" id="File Transfer" order="9" visible="true" weight="0.24216868" />
+=======
+      <window_info anchor="bottom" id="File Transfer" order="9" weight="0.24216868" />
+>>>>>>> Stashed changes
 =======
       <window_info anchor="bottom" id="File Transfer" order="9" weight="0.24216868" />
 >>>>>>> Stashed changes
@@ -360,9 +405,13 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.22389127" />
 =======
       <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.22389127" />
+>>>>>>> Stashed changes
+=======
+      <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.22389127" />
 >>>>>>> Stashed changes
       <window_info anchor="right" id="Database" order="4" />
     </layout>
