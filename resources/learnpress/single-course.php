@@ -286,7 +286,7 @@ echo template('partials.header');
         <?php if(get_field('files')) {  ?>
 
             <div class="bonus">
-                <div class="content-width">
+                <div class="">
                   <h3>LES BONUS</h3>
                   <div class="slider-wrap">
                     <div class="owl-carousel owl-theme bonus-slider">

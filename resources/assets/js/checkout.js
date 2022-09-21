@@ -414,6 +414,8 @@ var checkoutObj
 		}
 	});
 
+	
+
 
 	setTimeout(function(){
 		$('[name="course_type"]:checked').trigger('change');

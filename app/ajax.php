@@ -503,7 +503,7 @@ class Ajax extends Controller
 
         $event = $paypal->webhook();
 
-        wp_mail('oleg.derimedved@gmail.com', 'event', 'e - '. json_encode($event));
+      // wp_mail('oleg.derimedved@gmail.com', 'event', 'e - '. json_encode($event));
         
 
 
@@ -1745,13 +1745,14 @@ class Ajax extends Controller
                     'user_email' => $email,
                     'role'  => $role,
                     'show_admin_bar_front' => false,
-                    'first_name' => $_POST['name'],
+                    'first_name' => $_POST['name'] ?? $_POST['first_name'],
                     'last_name' => $_POST['last_name']
                 ];
             
                 $user_id = wp_insert_user($user_data);
                 update_field('pregnant', $_POST['pregnant'], 'user_' . $user_id);
                 update_field('phone', $_POST['phone'], 'user_' . $user_id);
+                update_field('age', $_POST['age'], 'user_' . $user_id);
 
 
                 if($user_id) {

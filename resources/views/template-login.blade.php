@@ -26,7 +26,7 @@ if(!current_user_can( 'administrator' )&&is_user_logged_in()) {
 
 
 
-                    @if ($acf_options->social_login_page)
+                    @if ($acf_options->social_login_page0)
                     <div class="login__social">
                         <div class="login__social__block login-social__block_google">
                             <a href="{{ get_permalink($acf_options->social_login_page) }}?loginSocial=google&c=<?= $_GET['c'] ?>" rel="nofollow" aria-label="Continue with <b>Google</b>" data-plugin="nsl" data-action="connect" data-provider="google">
@@ -41,11 +41,11 @@ if(!current_user_can( 'administrator' )&&is_user_logged_in()) {
                             </a>
                         </div>
                     </div>
-                    @endif
+
 
                         <div class="login__separator">OU</div>
 
-
+                    @endif
 
                 <form class="login__fields ajax_form">
                     <div class="login__field">

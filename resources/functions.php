@@ -149,3 +149,11 @@ add_action('nsl_login', function ($user_id, $provider) {
 //        }
 //    }
 //});
+
+
+//add_action('template_redirect', function() {
+//    if (!is_user_logged_in())
+//        if (get_the_id() !== 274 && get_the_id() !== 276) {
+//            wp_safe_redirect(get_permalink(274));
+//        }
+//});

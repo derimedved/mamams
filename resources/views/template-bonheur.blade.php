@@ -211,7 +211,7 @@
                         </div>
                       </div>
                       <div class="button_wrapper text_center">
-                        <div class="btn_row"><a class="btn btn_template" href="#">Mon 1er cours offert</a></div>
+                        <div class="btn_row"><a class="btn btn_template" href="#">MON 1ER COURS D'ESSAI</a></div>
                         <div class="btn_row"><button class="custom_link jsCloseModals" type="button">Fermer</button></div>
                       </div>
                     </div>
@@ -271,7 +271,7 @@
                                 {!! $content !!}
                               </div>
                               <div class="button_wrapper">
-                                <div class="btn_row"><a class="btn btn_template jsScrollTo" href="#bottom_form">Mon 1er cours offert</a></div>
+                                <div class="btn_row"><a class="btn btn_template jsScrollTo" href="#bottom_form">MON 1ER COURS D'ESSAI</a></div>
                                 <div class="btn_row">
                                   <button class="single_link btn_less" type="button">Fermer</button>
                                 </div>
