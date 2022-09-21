@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" uploadOnCheckin="d73a212c-9eb6-4a05-a0ef-81f2e071a3c6">
+    <serverData>
+      <paths name="futuresmamans">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/wp-content/themes/mamams" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="futuresmamans" />
+  </component>
+</project>

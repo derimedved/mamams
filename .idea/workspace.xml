@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="55148f6f-a98f-471f-a1e1-ecec4b1cc2d1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/ajax.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ajax.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/paypal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/paypal.php" afterDir="false" />
+<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/resources/assets/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/js/checkout.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/js/checkout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/learnpress/single-course.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/learnpress/single-course.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/learnpress/single-course/meta-secondary.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/learnpress/single-course/meta-secondary.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/content-specialists-upd.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/content-specialists-upd.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template-plan-upd.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template-plan-upd.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/template-registration-upd.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/template-registration-upd.blade.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/resources/assets/fonts/Work_Sans.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/img/advantages-6.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/img/advantages-7.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/soon/fonts/Work_Sans.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/soon/video/site_20sec_draft.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/video/site_20sec_draft.mp4" beforeDir="false" />
+>>>>>>> Stashed changes
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< Updated upstream
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/Plan.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="198" column="41" selection-start-line="198" selection-start-column="20" selection-end-line="198" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+>>>>>>> Stashed changes
+      <file pinned="true" current-in-tab="false">
+        <entry file="remoteDeploymentFS://&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-levenement.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="36" column="46" selection-start-line="36" selection-start-column="46" selection-end-line="36" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="true" current-in-tab="true">
+        <entry file="remoteDeploymentFS://&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-bonheur.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="178">
+              <caret line="289" column="14" lean-forward="true" selection-start-line="289" selection-start-column="14" selection-end-line="289" selection-end-column="14" />
+=======
+            <state relative-caret-position="-441">
+              <caret line="273" column="133" selection-start-line="273" selection-start-column="133" selection-end-line="273" selection-end-column="133" />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="true" current-in-tab="false">
+        <entry file="remoteDeploymentFS://&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/resources/views/template-bonheur.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="true" current-in-tab="false">
+        <entry file="remoteDeploymentFS://&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/resources/views/partials/content-specialists-upd.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="86" selection-start-line="86" selection-end-line="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
+=======
+        <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/Agreement.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4930">
+              <caret line="294" column="87" selection-start-line="294" selection-start-column="82" selection-end-line="294" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/PaymentDefinition.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2159">
+              <caret line="127" column="5" selection-start-line="127" selection-start-column="5" selection-end-line="127" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+>>>>>>> Stashed changes
+        <entry file="file://$PROJECT_DIR$/app/setup.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.ssh/id_ed25519.pub">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.ssh/config">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>socia</find>
+      <find>course-block</find>
+      <find>createSubscription</find>
+      <find>date_end</find>
+      <find>customer.subscription.created</find>
+      <find>frequency_interval</find>
+      <find>defi</find>
+      <find>defin</find>
+      <find>wp_ma</find>
+      <find>wp_m</find>
+      <find>payp</find>
+      <find>cPlan</find>
+      <find>date_e</find>
+      <find>date_en</find>
+      <find>archive_orders</find>
+      <find>add_profil_order</find>
+      <find>order</find>
+      <find>prof</find>
+      <find>remove_order_event</find>
+      <find>course_type</find>
+      <find>prop('checked'</find>
+      <find>text(</find>
+      <find>premi</find>
+      <find>ajax_checkout</find>
+      <find>off</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-registration-upd.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/template-registration-upd.blade.php" />
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-login.blade.php" />
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/learnpress/single-course.php" />
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/partials/head.blade.php" />
+        <option value="&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/resources/learnpress/single-course.php" />
+        <option value="$PROJECT_DIR$/app/ajax.php" />
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/app/ajax.php" />
+        <option value="$PROJECT_DIR$/app/paypal.php" />
+        <option value="&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/app/paypal.php" />
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/assets/js/checkout.js" />
+        <option value="&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/resources/assets/js/checkout.js" />
+        <option value="&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/resources/views/template-plan-upd.blade.php" />
+        <option value="$USER_HOME$/.ssh/config" />
+        <option value="&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/app/ajax.php" />
+        <option value="&lt;b1306273-ed35-4649-ac18-9179c4d6c11a&gt;/wp-content/themes/mamams/resources/views/partials/content-specialists-upd.blade.php" />
+        <option value="&lt;d73a212c-9eb6-4a05-a0ef-81f2e071a3c6&gt;/wp-content/themes/mamams/resources/views/template-bonheur.blade.php" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/deployment.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="y" value="25" />
+    <option name="width" value="1440" />
+    <option name="height" value="813" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="mamams" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mamams" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mamams" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mamams" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mamams" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mamams" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/node_modules/stylelint" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/assets/js" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="55148f6f-a98f-471f-a1e1-ecec4b1cc2d1" name="Default Changelist" comment="" />
+      <created>1658139281968</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658139281968</updated>
+      <workItem from="1658139283745" duration="1997000" />
+      <workItem from="1658302581697" duration="1174000" />
+      <workItem from="1658742262799" duration="1161000" />
+      <workItem from="1658746759051" duration="3035000" />
+      <workItem from="1659094956806" duration="1406000" />
+      <workItem from="1659960770789" duration="839000" />
+      <workItem from="1660213719835" duration="519000" />
+      <workItem from="1660900348287" duration="6018000" />
+      <workItem from="1663059701652" duration="17598000" />
+      <workItem from="1663580466619" duration="369000" />
+      <workItem from="1663659095580" duration="2813000" />
+<<<<<<< Updated upstream
+      <workItem from="1663670215684" duration="2047000" />
+=======
+      <workItem from="1663670215684" duration="1179000" />
+>>>>>>> Stashed changes
+    </task>
+    <task id="LOCAL-00001" summary="registration valid">
+      <created>1658744839924</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1658744839924</updated>
+    </task>
+    <task id="LOCAL-00002" summary="registration valid">
+      <created>1658745294664</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1658745294664</updated>
+    </task>
+    <task id="LOCAL-00003" summary="registration valid">
+      <created>1658745437812</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1658745437812</updated>
+    </task>
+    <task id="LOCAL-00004" summary="registration valid">
+      <created>1658745493410</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658745493410</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
+    <option name="totallyTimeSpent" value="38976000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28612304" />
+=======
+    <option name="totallyTimeSpent" value="38108000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28612304" />
+>>>>>>> Stashed changes
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32891566" />
+<<<<<<< Updated upstream
+      <window_info anchor="bottom" id="File Transfer" order="9" visible="true" weight="0.24216868" />
+=======
+      <window_info anchor="bottom" id="File Transfer" order="9" weight="0.24216868" />
+>>>>>>> Stashed changes
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32891566" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+<<<<<<< Updated upstream
+      <window_info anchor="right" id="Remote Host" order="3" visible="true" weight="0.22389127" />
+=======
+      <window_info active="true" anchor="right" id="Remote Host" order="3" visible="true" weight="0.22389127" />
+>>>>>>> Stashed changes
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="registration valid" />
+    <option name="LAST_COMMIT_MESSAGE" value="registration valid" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$USER_HOME$/Downloads/tsvinger.ru/next.config.js" />
+    <entry file="file://$USER_HOME$/Downloads/livecanvas-custom-posts-display.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/template-registration-upd.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/methods.js" />
+    <entry file="file://$PROJECT_DIR$/app/ajax.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="505" column="8" selection-start-line="505" selection-start-column="8" selection-end-line="505" selection-end-column="8" />
+          <folding>
+            <element signature="e#30952#39222#0#PHP" />
+            <element signature="e#39449#49125#0#PHP" />
+            <element signature="e#41270#42968#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/paypal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="546" column="28" lean-forward="true" selection-start-line="546" selection-start-column="28" selection-end-line="546" selection-end-column="28" />
+          <folding>
+            <element signature="e#1838#1882#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/Plan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="198" column="41" selection-start-line="198" selection-start-column="20" selection-end-line="198" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/Agreement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4930">
+          <caret line="294" column="87" selection-start-line="294" selection-start-column="82" selection-end-line="294" selection-end-column="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/paypal/rest-api-sdk-php/lib/PayPal/Api/PaymentDefinition.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2159">
+          <caret line="127" column="5" selection-start-line="127" selection-start-column="5" selection-end-line="127" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/setup.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/.ssh/id_ed25519.pub">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.ssh/config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

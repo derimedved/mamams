@@ -1341,7 +1341,7 @@ class Ajax extends Controller
 
 
 
-                if($response['status']==201) {
+                if($response['status']==201) {f
 
                     $order = new \LP_Order();
                     $order->set_user_id( $_POST['user_id'] );
