@@ -32,6 +32,26 @@ jQuery(document).ready(function($){
 
     }
   })
+
+/*  $(window).on('load', function (e){
+    if($('*').is('.select-abonement')){
+      $('.select-abonement label:first-child').addClass('is-active');
+      $('.select-abonement label:first-child input').prop('checked',true);
+    }
+  });*/
+
+  $(document).on('click', '.select-abonement label', function (e){
+    let item = $(this).find('input');
+
+
+    if(!item.hasClass('is-active')){
+      $('.select-abonement label').removeClass('is-active');
+      $(this).addClass('is-active').find('input').prop('checked',true);
+
+    }
+
+
+  })
 })
 
 

@@ -877,9 +877,9 @@ class PayPalHandler
         } else {
             $environment = new ProductionEnvironment($this->clientId, $this->clientSecret);
         }
-        
 
-        
+
+
         $this->client = new PayPalHttpClient($environment);
     }
 
@@ -994,21 +994,21 @@ class PayPalHandler
 
             // Set webhook notification URL
             $webhook->setUrl($url);
-    
+
             // Set webhooks to subscribe to
             $webhookEventTypes = array();
             $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
-            '{
+                '{
                 "name":"CHECKOUT.ORDER.APPROVED"
             }'
             );
             $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
-            '{
+                '{
                 "name":"PAYMENT.SALE.COMPLETED"
             }'
             );
             $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
-            '{
+                '{
                 "name":"BILLING.SUBSCRIPTION.ACTIVATED"
             }'
             );
@@ -1019,7 +1019,7 @@ class PayPalHandler
             }'
             );
             $webhookEventTypes[] = new \PayPal\Api\WebhookEventType(
-            '{
+                '{
                 "name":"BILLING.PLAN.ACTIVATED"
             }'
             );
@@ -1101,7 +1101,7 @@ class PayPalHandler
 
 
 
-    
+
             $webhook->setEventTypes($webhookEventTypes);
 
             // // For Sample Purposes Only.
@@ -1109,7 +1109,7 @@ class PayPalHandler
 
             // ### Create Webhook
             try {
-                
+
                 $output = $webhook->create($apiContext);
 
                 $return = [
@@ -1149,7 +1149,7 @@ class PayPalHandler
                         'message' => $ex->getMessage(),
                         'data   ' => $ex->getData(),
                     ];
-                    
+
                 }
                 // Print Success Result
 
@@ -1162,7 +1162,7 @@ class PayPalHandler
 
     }
 
-    
+
     public function webhook() {
 
         $payload = @file_get_contents('php://input');
@@ -1174,7 +1174,7 @@ class PayPalHandler
     }
 
 
-    
+
     public function createOrder($item=[],$context=[]) {
 
         $return = [];
@@ -1193,8 +1193,8 @@ class PayPalHandler
 
         $request = new OrdersCreateRequest();
         $request->prefer('return=representation');
-        
-        
+
+
         $request->body = [
             "intent" => "CAPTURE",  // CAPTURE || AUTHORIZE
             "purchase_units" => [$item],
@@ -1206,18 +1206,24 @@ class PayPalHandler
             $response = $this->client->execute($request);
 
             $links=[];
-            
+
             foreach($response->result->links as $link)
             {
                 $links[$link->rel] = $link->href;
             }
 
+            $statuses = $this->captureOrderPayment($response->result->id);
+
+            $statuses2 = $this->captureOrder($response->result->id);
+
             $return = [
                 'status' => $response->statusCode,
                 'id' => $response->result->id,
                 'link' => $links['approve'],
+                'payment_status' => $statuses,
+                'payment_status2' => $statuses2['status']
             ];
-            
+
             // If call returns body in response, you can get the deserialized version from the result attribute of the response
             return $return;
 
@@ -1225,7 +1231,7 @@ class PayPalHandler
             echo $ex->getCode();
             echo $ex->getData();
 
-            
+
             return [
                 'status' => $ex->statusCode,
                 'message' => $ex->getMessage(),
@@ -1235,13 +1241,87 @@ class PayPalHandler
     }
 
 
+    public function captureOrderPayment($id) {
+
+        $pp_client_id= get_field('paypal_client_id','options');
+        $pp_secret   = get_field('paypal_client_secret','options');
+
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/oauth2/token');
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERPWD, $pp_client_id.':'.$pp_secret);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+            'Content-Type'=> 'application/x-www-form-urlencoded',
+            'grant_type'=>'client_credentials',
+
+        )));
+
+        $res_authcode = curl_exec($ch);
+        curl_close($ch);
+
+        $access_token =  json_decode($res_authcode)->access_token;
+
+        curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/checkout/orders/'. $id);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+            'Content-Type: application/json',
+            "Authorization: Bearer " . $access_token,
+
+        ));
+
+        $orders = curl_exec($ch);
+        curl_close($ch);
+
+        $result = json_decode($orders);
+
+        $statuses = [];
+        foreach ($result->purchase_units as $unit) {
+            foreach ($unit->payments->captures as $capture) {
+                $statuses[] = $capture->status;
+            }
+        }
+
+        return $statuses;
+
+
+
+    }
+
 
     /**
      * This function can be used to retrieve an order by passing order Id as argument.
      */
     public function getOrder($orderId)
     {
-        
+
+// Here, OrdersCaptureRequest() creates a POST request to /v2/checkout/orders
+// $response->result->id gives the orderId of the order created above
+        $request = new OrdersCaptureRequest($orderId);
+        print_r($request);
+
+
+        $request->prefer('return=representation');
+        try {
+            // Call API with your client and get a response for your call
+            $response = $this->client->execute($request);
+
+            // If call returns body in response, you can get the deserialized version from the result attribute of the response
+            print_r($response);
+        }catch (HttpException $ex) {
+            echo $ex->statusCode;
+            print_r($ex->getMessage());
+        }
+
+        die();
+
+
+
         // $client = PayPalClient::client();
         $response = $this->client->execute(new OrdersGetRequest($orderId));
         /**
@@ -1296,7 +1376,7 @@ class PayPalHandler
     }
 
 
-    public function createPlan($item=[],$return_url='',$cancel_url='',$apiContext) {
+    public function createPlan($item=[],$return_url='',$cancel_url='',$apiContext, $term='') {
 
         // $apiContext = $this->getApiContext($this->clientId, $this->clientSecret);
 
@@ -1317,8 +1397,8 @@ class PayPalHandler
 
         $paymentDefinition->setName('Regular Payments')
             ->setType('REGULAR')
-            ->setFrequency('YEAR')
-            ->setFrequencyInterval("1")
+            ->setFrequency('MONTH')
+            ->setFrequencyInterval($term)
             ->setAmount(new Currency(array('value' => $item['value'], 'currency' => $item['currency'])));
 
         $chargeModel = new ChargeModel();
@@ -1340,38 +1420,38 @@ class PayPalHandler
         $plan->setMerchantPreferences($merchantPreferences);
 
         try {
-    
+
 
             $cPlan = $plan->create($apiContext);
 
 //             $log = get_field('paypal_test', 'options');
 //             update_field( 'paypal_test', $log. 'cPlan --- '. $cPlan->getId(), 'options' );
-        
+
             try {
-        
+
                 $patch = new Patch();
-        
+
                 $value = new PayPalModel('{"state":"ACTIVE"}');
                 $patch->setOp('replace')
                     ->setPath('/')
                     ->setValue($value);
-        
+
                 $patchRequest = new PatchRequest();
                 $patchRequest->addPatch($patch);
-        
+
                 $cPlan->update($patchRequest, $apiContext);
                 $cPlan = Plan::get($cPlan->getId(), $apiContext);
-        
+
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
                 echo $ex->getCode();
                 echo $ex->getData();
                 die($ex);
             }
-        
+
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             echo $ex->getCode();
             echo $ex->getData();
-  
+
             exit();
         }
 
@@ -1380,19 +1460,20 @@ class PayPalHandler
 
 
 
-    public function createSubscription($item=[],$return_url='',$cancel_url='') {
+    public function createSubscription($item=[],$return_url='',$cancel_url='', $term) {
 
         $apiContext = $this->getApiContext($this->clientId, $this->clientSecret);
 
 
-        $cPlan = $this->createPlan($item,$return_url,$cancel_url,$apiContext);
-        
+        $cPlan = $this->createPlan($item,$return_url,$cancel_url,$apiContext,$term);
+
 
         $agreement = new Agreement();
 
+        $term = $term . ' months' ;
         $agreement->setName('Base Agreement')
             ->setDescription('Basic Agreement')
-            ->setStartDate(date('c',strtotime('+1 year')));
+            ->setStartDate(date('c',strtotime($term)));
 
         $plan = new Plan();
 
@@ -1445,7 +1526,7 @@ class PayPalHandler
 
     }
 
-    
+
 
     public function init() {
         echo 'test';
@@ -1469,10 +1550,10 @@ class PayPalHandler
             var_dump($ex);
             exit(1);
         }
-        
+
         // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
         //  ResultPrinter::printResult("List of Plans", "Plan", null, $params, $planList);
-        
+
         return $planList;
 
     }
@@ -1492,14 +1573,14 @@ class PayPalHandler
             var_dump($ex);
             exit(1);
         }
-        
+
         // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
         //  ResultPrinter::printResult("Retrieved a Plan", "Plan", $plan->getId(), null, $plan);
-        
+
         return $plan;
 
     }
-    
+
 
     public function ListPayments() {
 
@@ -1509,7 +1590,7 @@ class PayPalHandler
             $params = array('count' => 10);
 
             var_dump($params);
-        
+
             $payments = Payment::all($params, $apiContext);
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
@@ -1517,10 +1598,10 @@ class PayPalHandler
             var_dump($ex);
             exit(1);
         }
-        
+
         // NOTE: PLEASE DO NOT USE RESULTPRINTER CLASS IN YOUR ORIGINAL CODE. FOR SAMPLE ONLY
         //  ResultPrinter::printResult("List of Plans", "Plan", null, $params, $planList);
-        
+
         return $planList;
 
     }
@@ -1556,5 +1637,5 @@ class PayPalHandler
         return $response ? $return : false;
 
     }
- 
+
 }

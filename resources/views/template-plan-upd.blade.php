@@ -3,6 +3,76 @@
  * template name: Updated checkout
  */
 
+
+?>
+
+
+<?php
+
+if ($_GET['pp_tt']) {
+    $PayPalHandler = new App\PayPalHandler();
+
+
+    //655565663D7627343
+  //  print_r($PayPalHandler->getOrder('1BX60239648871628'));
+
+
+$pp_client_id= get_field('paypal_client_id','options');
+$pp_secret   = get_field('paypal_client_secret','options');
+
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/oauth2/token');
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_USERPWD, $pp_client_id.':'.$pp_secret);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array(
+    'Content-Type'=> 'application/x-www-form-urlencoded',
+    'grant_type'=>'client_credentials',
+
+)));
+
+$res_authcode = curl_exec($ch);
+    curl_close($ch);
+echo '<pre>';
+$access_token =  json_decode($res_authcode)->access_token;
+   //print_r($access_token);
+
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/checkout/orders/8AM73603MN3053607');
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+
+  //  curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+       // 'Paypal-Partner-Attribution-Id: Beomi',
+        'Content-Type: application/json',
+        "Authorization: Bearer " . $access_token,
+
+    ));
+
+    $orders = curl_exec($ch);
+    curl_close($ch);
+
+    $result = json_decode($orders);
+
+    foreach ($result->purchase_units as $unit) {
+        foreach ($unit->payments->captures as $capture) {
+            echo $capture->status;
+        }
+    }
+
+
+
+
+
+    die();
+}
+
 ?>
 
 <script>
@@ -220,21 +290,21 @@
                                         </label>
                                     </p>
                                 </div>
-                                <div class="select-wrap">
-                                    <div class="select-left">
-                                        <div class="select-block ">
+                                <div class="select-wrap select-abonement">
 
-                                        </div>
-                                        <div class="price-wrap">
-                                            <p class="price price-premium" data-price-month="{{ $premium_price_per_month }}" data-price-year="{{ $premium_price_per_month*12 }}">€15/mois</p>
-                                            <div class="bottom-price"><p>*FACTURÉS <br>ANNUELLEMENT</p></div>
-                                        </div>
-                                    </div>
-                                    <div class="select-right">
-                                        <figure>
-                                            <img class="image-premium" src="<?= get_the_post_thumbnail_url(get_field('choose_plan_page','options'), 'large') ?>" alt="">
-                                        </figure>
-                                    </div>
+                                    @foreach ($acf_options->premium as $premium)
+
+                                        <label class="{{ $premium->months == 12 ? 'is-active' : '' }}">
+                                            <p class="title" data-full="{!! $premium->title_full !!}">{!! $premium->title !!}</p>
+                                            <span data-text1="{!! $premium->text !!}" data-text2="{!! $premium->text_2 !!}">{!! $premium->text !!} {!! $premium->text_2 !!}</span>
+                                            @if ($premium->bage)
+                                                <span class="bage">{!! $premium->bage !!}</span>
+                                            @endif
+                                            <input {{ $premium->months == 12 ? 'checked' : '' }} type="radio" name="premium-type" data-price="{{ $premium->price  }}" value="{{ $premium->months }}">
+                                        </label>
+
+                                    @endforeach
+
                                 </div>
                                 <div class="info-wrap">
 

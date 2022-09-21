@@ -142,7 +142,7 @@ var checkoutObj
 				var newPrice = calcPrecent(Number(precent),price);
 			//	container.find('.old-price').html(currency+price);
 				var promo = container.find('.coupone-text').data('promo_text');
-				container.find('.coupone-text').text(promo+' (-'+precent+'%)');
+				container.find('.coupone-text').html(promo+' (-'+precent+'%)');
 				if(newPrice) price = newPrice;
 			} else {
 				//container.find('.old-price').text('');
@@ -153,16 +153,6 @@ var checkoutObj
 
 			if ($('[name="course_type"][value="one_course"]').prop('checked') == true)
 				container.find('.cost').html(price);
-			else {
-				var priceM =  $('.price-premium').attr('data-price-month');
-				var priceY =  $('.price-premium').attr('data-price-year');
-				var newPriceM = calcPrecent(Number(precent),Number(priceM));
-				var newPriceY = calcPrecent(Number(precent),Number(priceY));
-
-				$('.cost-wrap .cost').text('€' + newPriceM + '/MOIS')
-				$('.cost-wrap .info2').text('(soit ' + newPriceY + '€ pour l`accès à toutes les formations pendant 12 mois)')
-
-			}
 			// container.find('.plan__field_details-img').html(image);
 			// container.find('.plan__field_details-description').html(description);
 			$formCheckout.removeClass('loading');
@@ -362,7 +352,7 @@ var checkoutObj
 
 
 		if ($('[name="course_type"][value="one_course"]').prop('checked') == true) {
-			$('.chosen-item h5').text(title);
+			$('.chosen-item h5').html(title);
 			$('.chosen-item .cost').text(cost);
 			$('.chosen-item .info').text(tax);
 			$('.img-big').attr('src', image_big);
@@ -389,10 +379,13 @@ var checkoutObj
 			$('#select-1').trigger('change');
 			$('.checkout-wrap-1').addClass('is-selected');
 		} else {
+
+			$('.select-abonement .is-active input').change()
 			var
 				image_big = $('.image-premium').attr('src'),
-				title = 'L’ABONNEMENT PREMIUM EN ILLIMITÉ',
-				cost = $('.price-premium').text();
+				title =$('.select-abonement .is-active .title').attr('data-full'),
+				cost = $('.select-abonement .is-active span').attr('data-text1'),
+				cost2 = $('.select-abonement .is-active span').attr('data-text2');
 			//	bottom_price =  $('.checkout-wrap-2 .bottom_price').html();
 			//	tax = $('#course-' + id).find('.tax-text p').text();
 			$('.img-big').attr('src', image_big);
@@ -400,8 +393,8 @@ var checkoutObj
 			$('.chosen-item .cost').text(cost);
 			$('.chosen-item .info').remove();
 
-			$('.chosen-item .cost-wrap').append('<p class="info">*FACTURÉS <br>ANNUELLEMENT</p> ')
-			$('.chosen-item .cost-wrap').append('<p class="info info2">(soit 180€ pour l`accès à toutes les formations pendant 12 mois)</p> ')
+			//$('.chosen-item .cost-wrap').append('<p class="info">*FACTURÉS <br>ANNUELLEMENT</p> ')
+			$('.chosen-item .cost-wrap').append('<p class="info ">' + cost2 + '</p> ')
 
 
 			$('.checkout-wrap-1').removeClass('is-selected')
@@ -414,8 +407,11 @@ var checkoutObj
 		}
 	});
 
-	
+	$('.select-abonement').click(function () {
 
+		$('[name="course_type"][value="premium"]').prop('checked', true).trigger('change');
+
+	});
 
 	setTimeout(function(){
 		$('[name="course_type"]:checked').trigger('change');
