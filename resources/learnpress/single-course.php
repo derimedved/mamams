@@ -138,12 +138,21 @@ echo template('partials.header');
           <?php if(get_field('top_video')): ?>
             <div class="video-wrap" >
               <div class="hover-block">
-<!--                <img src="--><?//= get_the_post_thumbnail_url(get_the_id(), 'full') ?><!--" alt="">-->
-<!--                <a href="#"><img src="--><?//= get_template_directory_uri() ?><!--/assets/img/icon-402.svg" alt=""></a>-->
+                <img src="<?= get_the_post_thumbnail_url(get_the_id(), 'full') ?>" alt="">
+                <a href="#"><img src="<?= get_template_directory_uri() ?>/assets/img/icon-402.svg" alt=""></a>
+
+                  <div class="video-bage">
+                      Ceci est une vidéo de présentation de formation
+                  </div>
               </div>
+
               <div style="padding:56.25% 0 0 0;position:relative;">
                 <?php get_field('top_video'); ?>
               </div>
+
+                <div class="video-bage">
+                    Ceci est une vidéo de présentation de formation
+                </div>
               <style>
                 .video-wrap iframe {position:absolute;top:0;left:0;width:100%;height:100%;"}
               </style>
@@ -384,7 +393,7 @@ echo template('partials.header');
                 if(get_field('custom_demo_thumb',$lesson_id)) $lesson_thumb = get_field('custom_demo_thumb',$lesson_id)['sizes']['300x200'];
                 $lesson_duration = get_field('duration',$lesson_id);
                 ?>
-                <form action="#" class="course-item">
+                <form action="#" class="course-item <?= get_field('experts', $lesson_id)['value'] ?>">
                   <div class="mob-title">
                     <p class="course-item__title"><span><?= $i; ?>.</span> <?= $lesson->get_title( 'display' ); ?></p>
 
@@ -417,6 +426,15 @@ echo template('partials.header');
                         <span class="progress-block__progress-result progress-block__progress-result_start" style="width:<?= $lesson_progress?:0; ?>%;"></span>
                       </div>
                     </div>
+
+                      <?php if ( get_field('experts', $lesson_id) ||  get_field('custom', $lesson_id) ) { ?>
+                      <span class="badge">
+                          <?= get_field('custom', $lesson_id) ? get_field('custom', $lesson_id) : get_field('experts', $lesson_id)['label'] ?>
+
+                      </span>
+                      <?php } ?>
+
+
                   </div>
 
                   <input type="hidden" name="progress" value="<?= $lesson_progress; ?>" />

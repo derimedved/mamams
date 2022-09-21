@@ -9,20 +9,41 @@
 
 
             ?></h3>
-        <div class="owl-carousel owl-theme expert-slider">
+
+        <?php foreach (get_terms(['taxonomy' => 'categories_specialists']) as $term) {
+
+            $i++;
+            ?>
+
+            <div class="owl-carousel owl-theme expert-slider  {{$i == 2 ? 'expert-slider-white' : '' }}">
 
             <?php
             $args = [
                 'post_type'   => 'specialists',
                 'posts_per_page' => -1,
                 'paged' => 1,
-                'post__in' => $instructors
+                'post__in' => $instructors,
+                'categories_specialists' => $term->slug
             ];
 
 
             if (!$instructors)
-            $args['post__in'] = wp_list_pluck(get_field('experts_slider', 246), 'ID');
+                $args['post__in'] = wp_list_pluck(get_field('experts_slider', 246), 'ID');
 
+            ?>
+
+                <div class="slide slide-first" style="background: #eee">
+                    <div class="expert-category">
+
+                        <div class="text-wrap">
+                            <h5>{{ $term->name }}</h5>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <?php
 
             $specialists = new \WP_Query($args);
             while ($specialists->have_posts()) {
@@ -52,10 +73,21 @@
 
 
         </div>
+
+        <?php } ?>
     </div>
 </section>
 
 <?php
+
+$args = [
+    'post_type'   => 'specialists',
+    'posts_per_page' => -1,
+    'paged' => 1,
+     
+];
+$specialists = new \WP_Query($args);
+
 while ($specialists->have_posts()) {
 $specialists->the_post();
 $specialist = get_the_id()

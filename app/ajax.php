@@ -503,7 +503,7 @@ class Ajax extends Controller
 
         $event = $paypal->webhook();
 
-        wp_mail('oleg.derimedved@gmail.com', 'event', 'e - '. json_encode($event));
+      //  wp_mail('oleg.derimedved@gmail.com', 'event', 'e - '. json_encode($event));
         
 
 
@@ -565,6 +565,10 @@ class Ajax extends Controller
                                 'date_end' => date('d/m/Y',strtotime($available.' month')),
                             ];
                         }
+
+
+
+
                         $this->add_profil_order($order_id,$user_id,$profile_args);
                         // add order to profile end
                         
@@ -595,7 +599,9 @@ class Ajax extends Controller
                         $order = learn_press_get_order( $order_id );
                         $order->update_status( 'completed' );
                     }
-                    
+
+
+                    wp_mail('oleg.derimedved@gmail.com', 'event', 'data - '. json_encode($event));
 
                     // remove order cron event
                     if($order) {
@@ -762,6 +768,8 @@ class Ajax extends Controller
 
                 // end subscription strtotime
                 $end_sub = $event->data->object->current_period_end;
+
+
 
                 // get customer 
                 $customer_id = $event->data->object->customer;
@@ -961,7 +969,13 @@ class Ajax extends Controller
             }
             // Premium
             else if($_POST['course_type']=='premium') {
-                $stripe_price = get_field('premium_price_id','options');
+                //$stripe_price = get_field('premium_price_id','options');
+
+                foreach (get_field('premium', 'option') as $premium) {
+                    if ($premium['months'] == $_POST['premium-type'])
+                        $stripe_price = $premium['stripe_id'];
+                }
+
                 $mode = 'subscription';
                 if($c_tax = get_field('c_tax','options')) {
                     $c_tax_id = $stripe->getTaxId((int)$c_tax);
@@ -1304,13 +1318,23 @@ class Ajax extends Controller
                 }
                 
 
+
+
+                foreach (get_field('premium', 'option') as $premium) {
+                    if ($premium['months'] == $_POST['premium-type'])
+                        $premium_item = $premium;
+                }
+
+
                 $item = [
-                    'title' => $premium_title,
-                    'value' => $premium_price,
+                    'title' => $premium_item['title'],
+                 //   'value' => $premium_item['price'],
+                    'value' => 0.1,
                     'currency' => $currency,
                 ];
 
-                $response = $paypal->createSubscription($item,$ty_page,$c_page);
+                $term = $_POST['premium-type'] ?? 12;
+                $response = $paypal->createSubscription($item,$ty_page,$c_page, $term);
 
                //    $response = $paypal->createSubscription($item,'',$c_page);
 
@@ -1322,13 +1346,13 @@ class Ajax extends Controller
                     $order->set_user_id( $_POST['user_id'] );
                     $order->update_status();
                     $order->save();
-                    $order->set_subtotal($premium_price);
-                    $order->set_total($premium_price);
+                    $order->set_subtotal($premium_item['price']);
+                    $order->set_total($premium_item['price']);
                     update_post_meta( $order->get_id(), 'is_premium', 1 );
                     update_post_meta( $order->get_id(), '_order_currency', learn_press_get_currency() );
                     update_post_meta( $order->get_id(), '_prices_include_tax', 'no' );
-                    update_post_meta( $order->get_id(), '_order_subtotal', $premium_price );
-                    update_post_meta( $order->get_id(), '_order_total', $premium_price );
+                    update_post_meta( $order->get_id(), '_order_subtotal', $premium_item['price'] );
+                    update_post_meta( $order->get_id(), '_order_total', $premium_item['price'] );
                     update_post_meta( $order->get_id(), '_order_key', learn_press_generate_order_key() );
                     update_post_meta( $order->get_id(), '_payment_method', '' );
                     update_post_meta( $order->get_id(), '_payment_method_title', '' );
@@ -1355,6 +1379,7 @@ class Ajax extends Controller
             $data = array(
                 'update'=>false, 
                 'status' => '<p class="error">'.__('Unknow payment method','sage').'</p>',
+                'response'=>$response,
             );
 
         echo json_encode($data);

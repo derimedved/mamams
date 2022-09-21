@@ -290,21 +290,21 @@ $access_token =  json_decode($res_authcode)->access_token;
                                         </label>
                                     </p>
                                 </div>
-                                <div class="select-wrap">
-                                    <div class="select-left">
-                                        <div class="select-block ">
+                                <div class="select-wrap select-abonement">
 
-                                        </div>
-                                        <div class="price-wrap">
-                                            <p class="price price-premium" data-price-month="{{ $premium_price_per_month }}" data-price-year="{{ $premium_price_per_month*12 }}">€15/mois</p>
-                                            <div class="bottom-price"><p>*FACTURÉS <br>ANNUELLEMENT</p></div>
-                                        </div>
-                                    </div>
-                                    <div class="select-right">
-                                        <figure>
-                                            <img class="image-premium" src="<?= get_the_post_thumbnail_url(get_field('choose_plan_page','options'), 'large') ?>" alt="">
-                                        </figure>
-                                    </div>
+                                    @foreach ($acf_options->premium as $premium)
+
+                                        <label class="{{ $premium->months == 12 ? 'is-active' : '' }}">
+                                            <p class="title" data-full="{!! $premium->title_full !!}">{!! $premium->title !!}</p>
+                                            <span data-text1="{!! $premium->text !!}" data-text2="{!! $premium->text_2 !!}">{!! $premium->text !!} {!! $premium->text_2 !!}</span>
+                                            @if ($premium->bage)
+                                                <span class="bage">{!! $premium->bage !!}</span>
+                                            @endif
+                                            <input {{ $premium->months == 12 ? 'checked' : '' }} type="radio" name="premium-type" data-price="{{ $premium->price  }}" value="{{ $premium->months }}">
+                                        </label>
+
+                                    @endforeach
+
                                 </div>
                                 <div class="info-wrap">
 
