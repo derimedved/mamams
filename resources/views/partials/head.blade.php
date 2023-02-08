@@ -6,7 +6,7 @@
 
   <?php
 
-      if (!is_user_logged_in())
+      if (2==4)
           if (!$_GET['excl'])
             if (get_the_id() !== 274 && get_the_id() !== 3185 && get_the_id() !== 619) {?>
 
@@ -52,7 +52,6 @@
 
     }
 
-  
 
 
 

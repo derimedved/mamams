@@ -49,6 +49,50 @@
         </div>
 
 
+        <section class="knowledge">
+            <div class="content-width">
+                <h2>ÉVALUEZ VOS CONNAISSANCES</h2>
+                <div class="mob-block">
+                    <div class="btn-wrap">
+                        <a href="/quiz-1" class="red-btn">Commencez votre évaluation</a>
+                    </div>
+                    <p class="info">*sans engagement</p>
+                </div>
+
+                <div class="content">
+
+                    <div class="sale">
+                        <h6>NOUVEAU</h6>
+                    </div>
+                    <figure>
+                        <img src="{{ get_template_directory_uri() }}/assets/img/img-600.png" alt="">
+                    </figure>
+                    <div class="text-wrap">
+                        <h6>Les femmes préparées et informées <b>vivent mieux</b> leur accouchement et leur maternité, <b>c’est scientifiquement prouvé.</b></h6>
+                        <ul>
+                            <li>
+                                <img src="{{ get_template_directory_uri() }}/assets/img/icon-601.svg" alt="">
+                                <p>Mais <b>comment savoir</b> si vous avez les connaissances nécessaires et si vous êtes prête ?</p>
+                            </li>
+                            <li>
+                                <img src="{{ get_template_directory_uri() }}/assets/img/icon-602.svg" alt="">
+                                <p>Nos professionnels de santé et spécialistes de la maternité ont élaboré ce module <b>d’auto-évaluation qui vous aide</b> à détecter ce que vous devez encore apprendre afin d’être actrice de votre maternité, de rester sereine et confiante et de prévenir toutes les difficultés.</p>
+                            </li>
+                            <li class="dark">
+                                <img src="{{ get_template_directory_uri() }}/assets/img/icon-603.svg" alt="">
+                                <p>Ne ratez pas l’opportunité d’offrir à votre bébé la <b>meilleure version de sa maman.</b></p>
+                            </li>
+                        </ul>
+                        <div class="btn-wrap">
+                            <a href="/quiz-1" class="red-btn">Commencez votre évaluation</a>
+                        </div>
+                        <p class="info">*sans engagement</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <section class="home-info">
             <div class="content-width">
                 <h4>{!!  $title  !!}</h4>

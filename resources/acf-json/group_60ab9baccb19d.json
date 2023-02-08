@@ -41,9 +41,9 @@
             "maxlength": ""
         },
         {
-            "key": "field_62c698a8f1fc8",
-            "label": "Paypal payment status",
-            "name": "paypal_payment_status",
+            "key": "field_633ab9ba82d8e",
+            "label": "Paypal agreement id",
+            "name": "paypal_agreement_id",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -60,9 +60,9 @@
             "maxlength": ""
         },
         {
-            "key": "field_62c698c0f1fc9",
-            "label": "Paypal payment status 2",
-            "name": "paypal_payment_status2",
+            "key": "field_62cffc9a3fb4f",
+            "label": "Paypal payment status",
+            "name": "paypal_payment_status",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -180,6 +180,44 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_6336e03490d31",
+            "label": "Subscription months",
+            "name": "subscription_months",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_6336e0d1c2218",
+            "label": "Subscription updates",
+            "name": "subscription_updates",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -199,5 +237,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1663747458
+    "modified": 1664793041
 }

@@ -45,6 +45,25 @@
         activeCamp()
     })
 
+   // $('.registration-quiz').validate()
+
+
+    $('.registration-quiz').validate({
+
+
+
+        submitHandler: function(form) {
+
+            $('.ajax_form').submit();
+
+            $('._form_13 [name="email"]').val($('#email-10').val());
+            $("#_form_13_submit").click();
+            $('#email-10').val('')
+        }
+    });
+
+
+
     $('.ajax_form .form-submit').click(function(e) {
 
         activeCamp()

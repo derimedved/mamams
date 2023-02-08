@@ -10,7 +10,7 @@
 
             ?></h3>
 
-        <?php foreach (get_terms(['taxonomy' => 'categories_specialists']) as $term) {
+        <?php foreach (get_terms(['taxonomy' => 'categories_specialists', 'orderby' => 'menu_order']) as $term) {
 
             $i++;
             ?>

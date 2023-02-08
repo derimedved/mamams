@@ -62,6 +62,13 @@ $name = !empty($name) ? implode(" ", $name) : '';
                             @if ($archive_orders)
 
                                 @foreach ($archive_orders as $order)
+
+                                    @php
+                                        $order_lp = learn_press_get_order($order['order_id']);
+                                       // if($order_lp->get_status() != 'completed')
+
+                                    @endphp
+
                                 <div class="item">
                                     <div class="row">
                                         <div class="c-date-wrap">
@@ -71,7 +78,9 @@ $name = !empty($name) ? implode(" ", $name) : '';
                                             </div>
                                             <div class="c-expire">
                                                 <strong>{{ $title_expiration_date }}</strong>
-                                                <p>{{ $order['date_end'] }}</p>
+                                                <p>
+                                                {!!  $order_lp->get_status() == 'cancelled' ? 'Annulé' :  $order['date_end']  !!}
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="c-id">

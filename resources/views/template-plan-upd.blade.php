@@ -373,7 +373,7 @@ $access_token =  json_decode($res_authcode)->access_token;
                                     </div>
                                     <div class="input-wrap input-wrap-50">
                                         <label for="phone"></label>
-                                        <input type="tel"  id="phone" name="phone" data-rule-number="true" placeholder="Numéro de téléphone" >
+                                        <input type="tel"  id="phone" name="phone" data-rule-number="true" placeholder="Numéro de téléphone" required>
                                     </div>
                                     <div class="input-wrap input-wrap-50">
                                         <label for="password"></label>
@@ -481,6 +481,10 @@ $access_token =  json_decode($res_authcode)->access_token;
                                     <input type="hidden" name="log_in_url" value="{{ get_permalink(274) }}">
                                     <input type="hidden" name="action" value="ajax_checkout">
                                     <input type="hidden" name="payment_method" value="stripe">
+
+                                    <input type="hidden" name="test_stripe" value="{{ $_GET['test_stripe'] }}">
+                                    <input type="hidden" name="test_paypal" value="{{ $_GET['test_paypal'] }}">
+
                                     <div class="status"></div>
                                 </div>
                             </div>

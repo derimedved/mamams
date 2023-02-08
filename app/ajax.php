@@ -50,6 +50,15 @@ class Ajax extends Controller
         add_action('wp_ajax_validate_email', [$this, 'validate_email']);
         add_action('wp_ajax_nopriv_validate_email', [$this, 'validate_email']);
 
+        add_action('wp_ajax_my_quiz_result', [$this, 'my_quiz_result']);
+        add_action('wp_ajax_nopriv_my_quiz_result', [$this, 'my_quiz_result']);
+
+        add_action('wp_ajax_questions_30', [$this, 'questions_30']);
+        add_action('wp_ajax_nopriv_questions_30', [$this, 'questions_30']);
+
+        add_action('wp_ajax_we_analyze', [$this, 'we_analyze']);
+        add_action('wp_ajax_nopriv_we_analyze', [$this, 'we_analyze']);
+
 
 
         
@@ -311,7 +320,7 @@ class Ajax extends Controller
                     $data = array(
                         'update'=>true, 
                         'status' => '<p class="success">'.__('Password changed successfully','sage').'</p>',
-                        'redirect' => get_permalink( 274 ),
+                        'redirect' => get_permalink( 274 ) ,
                     );
 
                 }
@@ -464,6 +473,10 @@ class Ajax extends Controller
                     'payment_intent.canceled',
                     'customer.subscription.created',
                     'customer.subscription.deleted',
+                    'customer.subscription.pending_update_applied',
+                    'payment_intent.payment_failed',
+                    'invoice.payment_failed',
+                    'invoice.paid'
                 ],
             ];
 
@@ -503,13 +516,17 @@ class Ajax extends Controller
 
         $event = $paypal->webhook();
 
-      //  wp_mail('oleg.derimedved@gmail.com', 'event', 'e - '. json_encode($event));
+       // wp_mail('oleg.derimedved@gmail.com', 'paypal', 'e - '. json_encode($event));
         
 
 
         $log = get_field('paypal_test', 'options');
         update_field( 'paypal_test', $log. ' webhook1 --- '. json_encode($event), 'options' );
 
+
+        $order_id =  (int)$event['resource']['description'] ;
+        $log_order = get_field('log', $order_id);
+        update_field( 'log', $log_order . "\n" . '-----' ."\n" . json_encode($event)  , $order_id );
 
 
 
@@ -576,41 +593,37 @@ class Ajax extends Controller
                 }
 
                 break;
-            case 'BILLING.SUBSCRIPTION.ACTIVATED':
-                // Then define and call a method to handle the successful attachment of a PaymentMethod.
-                // handlePaymentMethodAttached($paymentMethod);
-                $plan_id = $event['resource']['plan_id'] ?: false;
+            case 'BILLING.SUBSCRIPTION.CREATED':
 
-                $end_sub = $event['resource']['billing_info']['next_billing_time'];
-                    
-                $end_sub = $end_sub ? strtotime($end_sub) : strtotime("+1 month");
-                
-                if($plan_id) {
-                    $order_ids = get_posts( array(
-                        'numberposts' => 1,
-                        'fields' => 'ids',
-                        'post_type'   => 'lp_order',
-                        'post_status' => 'any',
-                        'meta_key'    => 'paypal_plan_id',
-                        'meta_value'  => $plan_id,   
-                    ) ); wp_reset_postdata(  );
-                    $order_id=$order_ids?$order_ids[0]:0;
-                    if($order_id) {
-                        $order = learn_press_get_order( $order_id );
+
+                $end_sub = $event['resource']['agreement_details']['next_billing_date'];
+
+
+                $order_id =  (int)$event['resource']['description'] ;
+                if($order_id) {
+                    $order = learn_press_get_order( $order_id );
+
+                    $status = $order->get_status();
+                    if ($status != 'completed')
                         $order->update_status( 'completed' );
-                    }
-
-
-                    wp_mail('oleg.derimedved@gmail.com', 'event', 'data - '. json_encode($event));
-
-                    // remove order cron event
-                    if($order) {
-                        wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $order->user_id ) );
-                    }
                 }
 
+
+                update_post_meta( $order->get_id(), 'subscription_activated', 1 );
+                update_post_meta( $order->get_id(), 'paypal_agreement_id', $event['resource']['id'] );
+
+                if($end_date=date('d/m/Y',strtotime($end_sub))) {
+                    $profile_args = [
+                        'date_end' => $end_date,
+                    ];
+                }
+
+
+                $this->add_profil_order($order_id,'',$profile_args);
+                
+
                 break;
-            case 'BILLING.PLAN.ACTIVATED':
+            case 'BILLING.PLAN.ACTIVATED 0':
                 $plan_id = $event['resource']['id'] ?: false;
 
                 // $end_sub = $event['resource']['billing_info']['next_billing_time'];
@@ -635,7 +648,7 @@ class Ajax extends Controller
 
                     // remove order cron event
                     if($order) {
-                        wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $order->user_id ) );
+                     //   wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $order->user_id ) );
                     }
                 }
 
@@ -656,8 +669,152 @@ class Ajax extends Controller
                 if($order_id) {
                     update_post_meta( $order_id, 'paypal_payment_status', $payment_status );
                 }
+
+
+
                 break;
-            default:
+
+            case 'BILLING.PLAN.UPDATED 0':
+
+                $order_id =  (int)$event['resource']['description'] ;
+                $date = $event['create_time'] ;
+
+                $subscription_activated = get_field('subscription_activated', $order_id);
+                if($order_id && $subscription_activated) {
+                    $order = learn_press_get_order( $order_id );
+
+                    $status = $order->get_status();
+                    if ($status != 'completed') {
+                        $order->update_status('completed');
+
+                        update_post_meta($order->get_id(), 'method_title', 'Paypal - updated');
+
+                        $profile_args = [];
+                        $m = get_field('subscription_months', $order_id);
+
+
+
+                        $end_sub = strtotime("+" . $m . " month");
+                        if ($end_date = date('d/m/Y', $end_sub)) {
+                            $profile_args = [
+                                'date_end' => $end_date,
+                            ];
+                        }
+                    }
+
+                    if ($order_id && !$subscription_activated) {
+                        $this->add_profil_order($order_id,'',$profile_args);
+                    }
+
+
+                    $log = get_field('subscription_updates', $order_id);
+                    update_field('subscription_updates', $log . "\n" . '-----' . "\n" . $event['summary'] . ' ' . $date, $order_id);
+
+
+
+                }
+
+
+
+
+                break;
+
+            case 'BILLING.SUBSCRIPTION.CANCELLED':
+
+                $order_id =  (int)$event['resource']['description'] ;
+                $date = $event['create_time'] ;
+
+                if($order_id) {
+                    $order = learn_press_get_order( $order_id );
+
+                    $order->update_status( 'cancelled' );
+                    update_post_meta( $order->get_id(), 'method_title', 'Paypal - canceled' );
+
+                    $log = get_field('subscription_updates', $order_id);
+                    update_field( 'subscription_updates', $log. "\n" . '-----' ."\n" . $event['summary'] . ' '. $date , $order_id );
+                }
+
+
+                break;
+
+            case 'PAYMENT.SALE.COMPLETED':
+
+
+                $paypal_agreement_id =  $event['resource']['billing_agreement_id'] ;
+
+                $order_ids = get_posts( array(
+                    'numberposts' => 1,
+                    'fields' => 'ids',
+                    'post_type'   => 'lp_order',
+                    'post_status' => 'any',
+                    'meta_key'    => 'paypal_agreement_id',
+                    'meta_value'  => $paypal_agreement_id,
+                ) ); wp_reset_postdata(  );
+                $order_id=$order_ids?$order_ids[0]:0;
+                if($order_id) {
+
+                    $log_order = get_field('log', $order_id);
+                    update_field( 'log', $log_order . "\n" . '-----' ."\n" . json_encode($event)  , $order_id );
+                    
+                    $order = learn_press_get_order( $order_id );
+                    $status = $order->get_status();
+                    if ($status != 'completed') 
+                        $order->update_status('completed');
+        
+                    $paypal = new PayPalHandler();
+                    $agreement = $paypal->getAgreementNextDate($paypal_agreement_id);
+                    $end_sub = strtotime($agreement->next_billing_date);
+                    $cycles = $agreement->cycles_completed;
+
+                    if($end_date=date('d/m/Y',$end_sub)) {
+                        $profile_args = [
+                            'date_end' => $end_date,
+                        ];
+                    }
+
+                    if ($cycles > 0) {
+                        $this->add_profil_order($order_id,'',$profile_args);
+                    }
+
+                }
+
+
+
+
+                break;
+
+
+            case 'BILLING.SUBSCRIPTION.PAYMENT.FAILED':
+
+
+                $paypal_agreement_id =  $event['resource']['id'] ;
+
+                $order_ids = get_posts( array(
+                    'numberposts' => 1,
+                    'fields' => 'ids',
+                    'post_type'   => 'lp_order',
+                    'post_status' => 'any',
+                    'meta_key'    => 'paypal_agreement_id',
+                    'meta_value'  => $paypal_agreement_id,
+                ) ); wp_reset_postdata(  );
+                $order_id=$order_ids?$order_ids[0]:0;
+                if($order_id) {
+
+                    $log_order = get_field('log', $order_id);
+                    update_field( 'log', $log_order . "\n" . '-----' ."\n" . json_encode($event)  , $order_id );
+
+                    $order = learn_press_get_order( $order_id );
+
+                    $order->update_status( 'cancelled' );
+                    update_post_meta( $order->get_id(), 'method_title', 'Paypal - canceled.payment' );
+
+                }
+
+
+
+                break;
+
+                default:
               // Unexpected event type
               echo 'Received unknown event type';
 
@@ -674,8 +831,24 @@ class Ajax extends Controller
         $stripe = new StripeHandler();
 
         $event = $stripe->webhook();
+
+        $log = get_field( 'stripe_test','options' );
+        update_field( 'stripe_test', $log. "\n" . '-----' ."\n".  json_encode($event), 'options' );
+
+       // wp_mail('oleg.derimedved@gmail.com', 'stripe', "\n" . '-----' ."\n".  json_encode($event));
+
+
+        $sub_id = $event->data->object->id ?: false;
+
+//        if ($event->subscription)
+//            $sub_id = $event->subscription;
+
+        $order_id = $event->data->object->description;
+
+
+        $log_order = get_field('log', $order_id);
+        update_field( 'log', $log_order . "\n" . '-----' ."\n" . json_encode($event)  , $order_id );
         
-        update_field( 'stripe_test', json_encode($event), 'options' );
 
         switch ($event->type) {
             case 'payment_intent.succeeded':
@@ -730,7 +903,56 @@ class Ajax extends Controller
                         }
                         $this->add_profil_order($order_id,$user_id,$profile_args);
                         // add order to profile end
+
+                    }
+                }
+
+                break;
+
+            case 'invoice.paid':
+                // Then define and call a method to handle the successful payment intent.
+                // handlePaymentIntentSucceeded($paymentIntent);
+
+                // change learnpress order status
+                $sub_id = $event->data->object->subscription;
+                $end_sub = $event->data->object->lines->data[0]->period->end;
+
+              //  wp_mail('oleg.derimedved@gmail.com', 'stripe I', "\n" . '-----' ."\n".  json_encode($event));
+
+
+                if($sub_id) {
+                    $order_ids = get_posts( array(
+                        'numberposts' => 1,
+                        'fields' => 'ids',
+                        'post_type'   => 'lp_order',
+                        'post_status' => 'any',
+                        'meta_key'    => 'stripe_payment_id',
+                        'meta_value'  => $sub_id,
+                    ) ); wp_reset_postdata(  );
+                    $order_id=$order_ids?$order_ids[0]:0;
+                    if($order_id) {
+
+                        $log_order = get_field('log', $order_id);
+                        update_field( 'log', $log_order . "\n" . '-----' ."\n" . json_encode($event)  , $order_id );
                         
+                        $stripe_payment_id = get_field('stripe_payment_id', $order_id);
+                        $order = learn_press_get_order( $order_id );
+                        $user_id = $order->get_data( 'user_id' );
+                        if ($order->get_status() != 'completed' && $stripe_payment_id)  {
+                            $order->update_status( 'completed' );
+
+
+                            // add order to profile
+                            $profile_args=[];
+                            if($end_date=date('d/m/Y',$end_sub)) {
+                                $profile_args = [
+                                    'date_end' => $end_date,
+                                ];
+                            }
+                            $this->add_profil_order($order_id,$user_id,$profile_args);
+                        }
+                        // add order to profile end
+
                     }
                 }
 
@@ -758,7 +980,40 @@ class Ajax extends Controller
 
                 break;
 
+            case 'invoice.payment_failed'  :
+
+                $sub_id = $event->data->object->subscription;
+                if($sub_id) {
+                    $order_ids = get_posts( array(
+                        'numberposts' => 1,
+                        'fields' => 'ids',
+                        'post_type'   => 'lp_order',
+                        'post_status' => 'any',
+                        'meta_key'    => 'stripe_payment_id',
+                        'meta_value'  => $sub_id    ,
+                    ) ); wp_reset_postdata(  );
+                    $order_id=$order_ids?$order_ids[0]:0;
+                    if($order_id) {
+                        $order = learn_press_get_order( $order_id );
+                        $order->update_status( 'cancelled' );
+                    }
+                }
+
+                if($order_id) {
+
+                    $log_order = get_field('log', $order_id);
+                    update_field( 'log', $log_order . "\n" . '-----' ."\n" . json_encode($event)  , $order_id );
+
+                    $order = learn_press_get_order( $order_id );
+                    $order->update_status( 'cancelled' );
+                }
+
+
+                break;
+
             case 'customer.subscription.created':
+
+                $order_id = $event->data->object->description;
 
                 // get subscription id
                 $sub_id = $event->data->object->id;
@@ -770,6 +1025,7 @@ class Ajax extends Controller
                 $end_sub = $event->data->object->current_period_end;
 
 
+              //  $end_sub = strtotime('+1 day', $end_sub);
 
                 // get customer 
                 $customer_id = $event->data->object->customer;
@@ -783,27 +1039,10 @@ class Ajax extends Controller
 
                 if(!$user) break;
 
-                // find order
-                $order_ids = get_posts( array(
-                    'numberposts' => -1,
-                    'fields' => 'ids',
-                    'post_type'   => 'lp_order',
-                    'post_status' => 'any',
-                    'meta_query' => [
-                        [
-                            'key' => 'is_premium',
-                            'value' => true,
-                        ],
-                        [
-                            'key' => '_user_id',
-                            'value' => $user->ID,
-                        ]
-                    ], 
-                ) ); wp_reset_postdata(  );
 
                 // change status order
-                if($order_ids){
-                    $order = learn_press_get_order( $order_ids[0] );
+                if($order_id){
+                    $order = learn_press_get_order( $order_id );
                     $order->update_status( 'completed' );
                 }
 
@@ -812,7 +1051,8 @@ class Ajax extends Controller
 
                 // remove order cron event
                 if($order) {
-                    wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $user->ID ) );
+                    update_field('stripe_payment_id', $event->data->object->id, $order->get_id());
+                  //  wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $user->ID ) );
                 }
 
                 // send mail
@@ -837,43 +1077,13 @@ class Ajax extends Controller
 
             case 'customer.subscription.deleted':
 
-                // get subscription id
-                $sub_id = $event->data->object->id;
-
-                // get customer 
-                $customer_id = $event->data->object->customer;
-
-                $users = get_users( [
-                    'meta_key'     => 'subscription_id',
-                    'meta_value'   => $sub_id,
-                    'number'       => 1,
-                    'fields'       => 'ids',
-                ] );
-                if($users) $user_id = $users[0];
-
-                if(!$user_id) break;
-
-                // find order
-                $order_ids = get_posts( array(
-                    'numberposts' => -1,
-                    'fields' => 'ids',
-                    'post_type'   => 'lp_order',
-                    'post_status' => 'any',
-                    'meta_query' => [
-                        [
-                            'key' => 'is_premium',
-                            'value' => true,
-                        ],
-                        [
-                            'key' => '_user_id',
-                            'value' => $user_id,
-                        ]
-                    ], 
-                ) ); wp_reset_postdata(  );
 
                 // remove order
-                if($order_ids){
-                    $response = wp_delete_post($order_ids[0]);
+                if($order_id){
+                    //$response = wp_delete_post($order_ids[0]);
+                    $order = learn_press_get_order( $order_id  );
+                    $order->update_status( 'cancelled' );
+
                 }
 
 
@@ -976,6 +1186,10 @@ class Ajax extends Controller
                         $stripe_price = $premium['stripe_id'];
                 }
 
+                if ($_POST['test_stripe'])
+                    $stripe_price = 'price_1Ln0HvLGWTRPugoE4kZmo36L';
+
+
                 $mode = 'subscription';
                 if($c_tax = get_field('c_tax','options')) {
                     $c_tax_id = $stripe->getTaxId((int)$c_tax);
@@ -991,7 +1205,15 @@ class Ajax extends Controller
             if($c_tax_id) $item['tax_rates'] = [$c_tax_id];
 
             $items[] = $item;
-                        
+
+            $order = new \LP_Order();
+            $order->set_user_id( $_POST['user_id'] );
+            $order->update_status();
+            $order->save();
+
+
+
+
             $session_args = [
                 'success_url' => $ty_page,
                 'cancel_url' => $c_page,
@@ -999,9 +1221,18 @@ class Ajax extends Controller
                 'line_items' => $items,
                 'mode' => $mode,
                 'customer_email' => $user_email,
-            ]; 
+                'subscription_data' => [
+                    'description' => $order->get_id()
+                ],
+            ];
+
+            if ($mode === 'payment')
+                unset($session_args['subscription_data']);
+
             $allow=false;
-            //if($_POST['coupon']&&$_POST['course_type']=='one_course') {
+
+
+
 
             if($_POST['coupon'] ) {
                 $allow = $stripe->checkCoupon($_POST['coupon']);
@@ -1012,9 +1243,8 @@ class Ajax extends Controller
             }
             
             if($stripe_price) {
-
                 // create checkout session
-                $response = $stripe->createCheckoutSession($session_args);
+                $response = $stripe->createCheckoutSession($session_args, $order->get_id());
                 
 
                 // create course order
@@ -1072,7 +1302,12 @@ class Ajax extends Controller
                 // create premium order
                 else if($_POST['course_type']=='premium') {
 
-                    $premium_price = get_field('premium_price','options') ? (int)get_field('premium_price','options') : 320;
+                   // $premium_price = get_field('premium_price','options') ? (int)get_field('premium_price','options') : 320;
+
+                    foreach (get_field('premium', 'option') as $premium) {
+                        if ($premium['months'] == $_POST['premium-type'])
+                            $premium_price = $premium['price'];
+                    }
 
                     if($precent = get_field('c_tax','options')) {
                         $precent = (int)$precent;
@@ -1082,10 +1317,7 @@ class Ajax extends Controller
                         $premium_price = $premium_price+$tax_price;
                     }
 
-                    $order = new \LP_Order();
-                    $order->set_user_id( $_POST['user_id'] );
-                    $order->update_status();
-                    $order->save();
+
                     $order->set_subtotal($premium_price);
                     $order->set_total($premium_price);
                     update_post_meta( $order->get_id(), 'is_premium', 1 );
@@ -1307,15 +1539,9 @@ class Ajax extends Controller
 
 
                 $premium_title = get_field('premium_title','options') ?: __('Accès Premium sans aucune limite','sage');
-                $premium_price = get_field('premium_price','options') ? (int)get_field('premium_price','options') : 320;
+               // $premium_price = get_field('premium_price','options') ? (int)get_field('premium_price','options') : 320;
 
-                if($precent = get_field('c_tax_2','options')) {
-                    $precent = (int)$precent;
 
-                    $tax_price = ($premium_price/100)*$precent;
-
-                    $premium_price = $premium_price+$tax_price;
-                }
                 
 
 
@@ -1325,16 +1551,34 @@ class Ajax extends Controller
                         $premium_item = $premium;
                 }
 
+                if($precent = get_field('c_tax_2','options')) {
+                    $precent = (int)$precent;
+
+                    $tax_price = ($premium_item['price']/100)*$precent;
+
+
+                }
+
+                $price = $premium_item['price']+$tax_price;
+
+                if ($_POST['test_paypal'])
+                    $price = 0.1;
 
                 $item = [
                     'title' => $premium_item['title'],
-                 //   'value' => $premium_item['price'],
-                    'value' => 0.1,
+                    'value' => $price,
+                  //  'value' => 0.1,
                     'currency' => $currency,
                 ];
 
                 $term = $_POST['premium-type'] ?? 12;
-                $response = $paypal->createSubscription($item,$ty_page,$c_page, $term);
+
+                $order = new \LP_Order();
+                $order->set_user_id( $_POST['user_id'] );
+               // $order->update_status();
+                $order->save();
+
+                $response = $paypal->createSubscription($item,$ty_page,$c_page, $term, $user->ID, $order->get_id());
 
                //    $response = $paypal->createSubscription($item,'',$c_page);
 
@@ -1342,17 +1586,14 @@ class Ajax extends Controller
 
                 if($response['status']==201) {
 
-                    $order = new \LP_Order();
-                    $order->set_user_id( $_POST['user_id'] );
-                    $order->update_status();
-                    $order->save();
-                    $order->set_subtotal($premium_item['price']);
-                    $order->set_total($premium_item['price']);
+
+                    $order->set_subtotal($premium_item['price'] +$tax_price);
+                    $order->set_total($premium_item['price'] +$tax_price);
                     update_post_meta( $order->get_id(), 'is_premium', 1 );
                     update_post_meta( $order->get_id(), '_order_currency', learn_press_get_currency() );
                     update_post_meta( $order->get_id(), '_prices_include_tax', 'no' );
-                    update_post_meta( $order->get_id(), '_order_subtotal', $premium_item['price'] );
-                    update_post_meta( $order->get_id(), '_order_total', $premium_item['price'] );
+                    update_post_meta( $order->get_id(), '_order_subtotal', $premium_item['price'] +$tax_price);
+                    update_post_meta( $order->get_id(), '_order_total', $premium_item['price'] +$tax_price );
                     update_post_meta( $order->get_id(), '_order_key', learn_press_generate_order_key() );
                     update_post_meta( $order->get_id(), '_payment_method', '' );
                     update_post_meta( $order->get_id(), '_payment_method_title', '' );
@@ -1360,6 +1601,8 @@ class Ajax extends Controller
 
                     update_post_meta( $order->get_id(), 'paypal_plan_id', $response['id'] );
                     update_post_meta( $order->get_id(), 'method_title', $_POST['payment_method'] );
+                    update_post_meta( $order->get_id(), 'subscription_months', $premium_item['months'] );
+
 
                     $data = array(
                         'update'=>true,
@@ -1776,6 +2019,16 @@ class Ajax extends Controller
 
                     }
 
+                    if ($_POST['quiz']) {
+
+                        update_field('user', $user_id,  $_POST['quiz_result_id']);
+                        $redirect =  $_POST['quiz'];
+
+
+                    }
+
+
+
                     if($_POST['newsletter']) update_user_meta( $user_id, 'newsletter', $_POST['newsletter'] );
 
                     $data = array(
@@ -1880,7 +2133,7 @@ class Ajax extends Controller
         $redirect = ($_COOKIE['return_to_plan'] || $_GET['return']) && get_field('choose_plan_page','options') ?
             get_permalink( get_field('choose_plan_page','options') ) . '?l=1'
             //'/choisissez-votre-option-upd/?l=1'
-            : get_home_url();
+            : get_home_url(). '?rnd='. rand(0,999999999) ;
     
         if ( is_wp_error( $auth ) ) {
             $data = array(
@@ -1895,6 +2148,14 @@ class Ajax extends Controller
                 $redirect = get_permalink((int)$_POST['c']);
 
             }
+
+            if ($_POST['q']) {
+
+                update_field('user', $auth->ID,  $_POST['quiz_result_id']);
+                $redirect =  $_POST['q'];
+
+            }
+
 
             wp_set_current_user( $auth->ID );
             wp_set_auth_cookie( $auth->ID, true );
@@ -1928,6 +2189,62 @@ class Ajax extends Controller
         }
 
         die();
+    }
+
+
+    public function my_quiz_result(){
+        
+        if ((int)$_POST['quiz_rezult'] !== 0) {
+            $quiz_result_id = $_POST['quiz_rezult'];
+        } else {
+
+            $hash = wp_generate_password(8, false, false);
+            $post_data = array(
+                'post_type'     => 'quiz_result',
+                'post_title'    => 'Quiz result - ' . $_POST['quiz_title'],
+                'post_name'     => 'Quiz result - ' . $_POST['quiz_title'] . '_'. $hash,
+                'post_status'   => 'publish',
+                'post_author'   => 1,
+                'meta_input'     => [
+                    'result' => $_POST['result'],
+                    'quiz_title' => $_POST['quiz_title'],
+                    'quiz_id' => $_POST['quiz_id'],
+                    ],
+            );
+            $quiz_result_id = wp_insert_post( wp_slash($post_data) );
+            update_field('data', json_encode($_POST['data']), $quiz_result_id);
+
+            
+            //print_r(json_encode($_POST['data']));
+
+            setcookie('quiz_id_completed', $_POST['quiz_id'], 0, '/');
+            setcookie('quiz_'. $_POST['quiz_id'].'_result_id', $quiz_result_id, 0, '/');
+        }
+
+        if (is_user_logged_in()) {
+            update_field('user', get_current_user_id(), $quiz_result_id);
+            echo get_permalink(3794). '?quiz_result_id=' . $quiz_result_id;
+        }
+        else
+            echo get_permalink(3793) . '?quiz_result_id=' . $quiz_result_id;
+        //echo $permalink = get_permalink($quiz_result_id);
+        wp_die();
+    }
+
+
+    public function questions_30(){
+            if ($_POST['current_post_url']) {
+                $postid = url_to_postid($_POST['current_post_url']);
+                update_field('questions_30', true, $postid);
+        }
+    }
+
+
+    public function we_analyze(){
+            if ($_POST['analyze_button_text'] || $_POST['quiz_result_url']) {
+                $postid = url_to_postid($_POST['quiz_result_url']);
+                update_field('we_analyze', $_POST['analyze_button_text'], $postid);
+        }
     }
 
 }

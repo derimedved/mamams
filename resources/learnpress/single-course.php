@@ -147,7 +147,7 @@ echo template('partials.header');
               </div>
 
               <div style="padding:56.25% 0 0 0;position:relative;">
-                <?php get_field('top_video'); ?>
+                <?= get_field('top_video'); ?>
               </div>
 
                 <div class="video-bage">

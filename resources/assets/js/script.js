@@ -589,6 +589,7 @@ $(document).ready(function () {
 
   $('.profile-form-wrap .field input[type="tel"]').mask("+00 00 00 00 00 00 00 00", { placeholder: "+__ __ __ __ __ __ __ __" });
 
+  /*$('.quiz-default-form #tel').mask("+00 00 00 00 00 00 00 00", {});*/
   // landing
   function chatScroll() {
     var controller = new ScrollMagic.Controller({
@@ -672,6 +673,15 @@ $(document).ready(function () {
 
 
   function owlSliderAdd() {
+
+    let quizSlider = $('.quiz-step-slider').owlCarousel({
+      items:1,
+      nav:true,
+      navContainer: '#customNav',
+      dotsContainer: '#customDots',
+      touchDrag  : false,
+      mouseDrag  : false,
+    })
     let testimonialsSlider = $('.testimonials-slider').owlCarousel({
       loop:true,
       margin:0,
@@ -982,7 +992,7 @@ $(document).on('click', '.input-wrap-radio-2', function (e){
   $('.tel-mask').mask('+00 (0) 00 00 00 00');
 
 
-  $('.sign-up-new .wrap-img-form .right .input-wrap-select select').niceSelect();
+ // $('.sign-up-new .wrap-img-form .right .input-wrap-select select').niceSelect();
 
   $(document).on('click', '.sign-up-new .wrap-img-form .right .input-wrap-check .wrap input', function (e){
     if($(this).prop("checked")){

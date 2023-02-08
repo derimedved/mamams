@@ -55,7 +55,18 @@ if(!current_user_can( 'administrator' )&&is_user_logged_in()) {
                         <input name="password" class="login__fields_password field__input" type="password" placeholder="Mot de passe">
                     </div>
                     <div class="status"></div> 
-                    <button type="submit" class="login__fields_submit main-btn red-btn form-submit">SE CONNECTER</button>
+
+
+                    <button type="submit" class="login__fields_submit main-btn red-btn form-submit">
+
+                        @if ($_GET['quiz_result_id'])
+                            REVENIR AU RÉSULTAT DE QUIZ
+                            @else
+                            SE CONNECTER
+                        @endif
+
+
+                    </button>
                     <input type="hidden" name="action" value="ajax_login">
                     @if ($_GET['focus_course'])
                         <input type="hidden" name="focus_course" value="{{ $_GET['focus_course'] }}">
@@ -65,6 +76,12 @@ if(!current_user_can( 'administrator' )&&is_user_logged_in()) {
                     @if ($_GET['c'])
                         <input type="hidden" name="c" value="{{ $_GET['c'] }}">
                     @endif
+
+                    @if ($_GET['quiz_result_id'])
+                        <input type="hidden" name="q" value="{{ get_permalink(3794) . '?quiz_result_id=' . $_GET['quiz_result_id'] }}">
+                        <input type="hidden" name="quiz_result_id" value="{{   $_GET['quiz_result_id'] }}">
+                    @endif
+
                 </form>
                 <div asd class="login__signin field__link">
                     Vous n’avez pas de compte?

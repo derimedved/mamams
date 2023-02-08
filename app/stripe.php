@@ -20,6 +20,12 @@ class StripeHandler
     {
         $this->publishable_key = get_field('stripe_publishable_key_test','options');
         $this->secret_key = get_field('stripe_secret_key_test','options');
+
+//        $this->publishable_key = 'pk_test_51Ir22sLGWTRPugoEgsgGKmKjasJZL9zMMKQd29DFYBTyBlZ5omu7NuABK83YFojLQBL0KAMaySq93It8wn40Udx900MJU106Bx';
+//        $this->secret_key = 'sk_test_51Ir22sLGWTRPugoEbxgvdrH0OUVLyWETJAfbjFnIl0ktw1N8VqjaOMcUlnu0gt28JUXnQfRLRR6abvxelyG3OX1P00tUDJgVIl';
+
+
+
         $this->stripe = new \Stripe\StripeClient($this->secret_key);
     }
 
@@ -59,7 +65,7 @@ class StripeHandler
     }
 
 
-    public function createCheckoutSession($args=[]) {
+    public function createCheckoutSession($args=[], $order_id='') {
 
         $default_args = [
             'success_url' => get_home_url(  ),
@@ -67,6 +73,7 @@ class StripeHandler
             'payment_method_types' => ['card'],
             'line_items' => [],
             'mode' => 'payment',
+            'client_reference_id' => $order_id
         ];
         
         $checkout_session = $this->stripe->checkout->sessions->create(wp_parse_args( $args, $default_args ));

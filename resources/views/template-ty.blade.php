@@ -16,7 +16,7 @@ if ($type=='order') {
     $paypal = new App\PayPalHandler();
     $resp = $paypal->captureOrder($token);
 
-    print_r($resp);
+  //  print_r($resp);
 
     if($resp&&$resp['status']=='COMPLETED') {
         // success
@@ -29,9 +29,11 @@ if ($type=='plan') {
     $paypal = new App\PayPalHandler();
     $resp = $paypal->getAgreementState($token);
 
+  // print_r($resp);
+
     if($resp){
         
-        $end_sub = $resp['next_billing_date'] ?: strtotime("+1 month");
+      //  $end_sub = $resp['next_billing_date'] ?: strtotime("+1 month");
 
         $user_id = get_current_user_id();
 
@@ -61,7 +63,7 @@ if ($type=='plan') {
             }
 
             if($order) {
-                wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $user_id ) );
+            //    wp_schedule_single_event( $end_sub, 'remove_order_event',  array( $order->get_id(), $user_id ) );
             
 
                 // add profile
@@ -77,7 +79,7 @@ if ($type=='plan') {
                 $profile_course =  'Premium';
                 $profile_mail = $charges_email ?: $user_email;
                 $profile_cost = $order_total.$currency;
-                
+
                 $profile_order = [
                     'order_id' => $order_id,
                     'date_start' => date('d/m/Y'),
@@ -88,7 +90,7 @@ if ($type=='plan') {
                     'coupon' => $profile_coupon,
                 ];
                 $profile = new App\Profile();
-                $profile->profile_add_order($user_id,$profile_order);
+                //$profile->profile_add_order($user_id,$profile_order);
 
 
                 // send mail

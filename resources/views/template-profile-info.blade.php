@@ -66,15 +66,15 @@ $total_themes = array_merge($default_themes,$custom_themes);
                     @if (App::isPremium())
                         <div class="item item-active  width-100 ">
                             <figure>
-                                <img src="/wp-content/themes/mamams/resources/assets/img/icon-304.svg" alt="">
+                                <img src="/wp-content/themes/mamams/resources/assets/img/icon-304-1.svg" alt="">
                                 <span>
-                                        <img src="/wp-content/themes/mamams/resources/assets/img/icon-305.svg" alt="">
-                                        <b><?= $query->get_total() ?></b>
-                                    </span>
+                                    <img src="/wp-content/themes/mamams/resources/assets/img/icon-305.svg" alt="">
+                                    <b><img src="/wp-content/themes/mamams/resources/assets/img/icon-304-2.svg" alt=""></b>
+                                </span>
                             </figure>
                             <div class="text-wrap">
                                 <h3>PASS PREMIUM</h3>
-                                <p>Vous avez l’accès à toutes les formations disponible sur le site.</p>
+                                <p>Vous avez l’accès à toutes les formations disponible sur le site. Si vous voulez annuler votre abonnement merci de nous envoyer votre demande à <a href="mailto:support@edfm.fr">support@edfm.fr</a></p>
                                 <div class="link-wrap">
                                     <a href="{{ get_permalink(246) }}">Voir les formations</a>
                                 </div>
@@ -125,13 +125,13 @@ $total_themes = array_merge($default_themes,$custom_themes);
                             <figure>
                                 <img src="/wp-content/themes/mamams/resources/assets/img/icon-304-1.svg" alt="">
                                 <span>
-                                <img src="/wp-content/themes/mamams/resources/assets/img/icon-305.svg" alt="">
-                                <b><img src="/wp-content/themes/mamams/resources/assets/img/icon-304-2.svg" alt=""></b>
-                            </span>
+                                    <img src="/wp-content/themes/mamams/resources/assets/img/icon-305.svg" alt="">
+                                    <b><img src="/wp-content/themes/mamams/resources/assets/img/icon-304-2.svg" alt=""></b>
+                                </span>
                             </figure>
                             <div class="text-wrap">
                                 <h3>PASS PREMIUM</h3>
-                                <p>Vous avez l’accès à toutes les formations disponible sur le site.</p>
+                                <p>Vous avez l’accès à toutes les formations disponible sur le site. Si vous voulez annuler votre abonnement merci de nous envoyer votre demande à <a href="mailto:support@edfm.fr">support@edfm.fr</a></p>
                                 <div class="link-wrap">
                                     <a href="{{ get_permalink(246) }}">Voir les formations</a>
                                 </div>

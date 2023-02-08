@@ -84,14 +84,20 @@ add_action('wp_enqueue_scripts', function () {
         "assets/js/cuttr.js",
         "assets/js/script.js?v=".rand(0,9999),
         "assets/js/gtm.js",
+        "assets/js/quiz_result.js",
     ];
     if(is_front_page(  )||is_singular( 'lp_course' )) {
         $scripts[]="https://player.vimeo.com/api/player.js";
     }
-    if(basename(get_page_template()) == "template-plan.blade.php" || basename(get_page_template()) == "template-plan-upd.blade.php"){
+    if(basename(get_page_template()) == "template-plan.blade.php" ||
+        basename(get_page_template()) == "template-plan-upd.blade.php" ||
+        basename(get_page_template()) == "template-quiz.blade.php"){
         $scripts[]="https://js.stripe.com/v3/";
         $scripts[]="assets/js/checkout.js?v=".rand(0,9999);
         $stripe_publishable_key = get_field('stripe_publishable_key_test','options');
+
+      //  $stripe_publishable_key = 'pk_test_51Ir22sLGWTRPugoEgsgGKmKjasJZL9zMMKQd29DFYBTyBlZ5omu7NuABK83YFojLQBL0KAMaySq93It8wn40Udx900MJU106Bx';
+
 
         wp_enqueue_script('jqueryvalidation',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', array(), false, 1);
         wp_enqueue_script('jqueryvalidation_fr',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/localization/messages_fr.js', array(), false, 1);
@@ -118,6 +124,12 @@ add_action('wp_enqueue_scripts', function () {
 
     if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
         basename(get_page_template()) == "template-registration-upd.blade.php"
+        ||
+        basename(get_page_template()) == "template-after_quiz.blade.php"
+        ||
+        basename(get_page_template()) == "template-after_quiz-2.blade.php"
+        || is_singular('quiz')
+        || is_singular('quiz_result')
     ){
 
         $scripts[]="assets/js/jquery.sticky.js";
@@ -132,8 +144,11 @@ add_action('wp_enqueue_scripts', function () {
 
     if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
         basename(get_page_template()) == "template-registration-upd.blade.php" ||
-        basename(get_page_template()) == "template-registration-valid.blade.php"
+        basename(get_page_template()) == "template-registration-valid.blade.php" ||
+        basename(get_page_template()) == "template-after_quiz.blade.php"
+        
     ){
+
 
         wp_enqueue_script('jqueryvalidation',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js', array(), false, 1);
         wp_enqueue_script('jqueryvalidation_fr',  'https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/localization/messages_fr.js', array(), false, 1);
@@ -144,7 +159,8 @@ add_action('wp_enqueue_scripts', function () {
 
 
     if(  basename(get_page_template()) == "template-registration-upd.blade.php" ||
-        basename(get_page_template()) == "template-registration-valid.blade.php"
+        basename(get_page_template()) == "template-registration-valid.blade.php"||
+        basename(get_page_template()) == "template-after_quiz.blade.php"
     )  {
         $scripts[]="assets/js/registration.js?v=".rand(0,9999);
     }
@@ -332,3 +348,57 @@ add_action('after_setup_theme', function () {
 if( function_exists('acf_add_options_page') ) {
     acf_add_options_page();
 }
+
+
+
+add_filter('manage_lp_order_posts_columns', function($columns) {
+    return array_merge($columns,
+
+        ['method_title' => 'Method'],
+        ['id' => 'id']
+
+    );
+}, 1    );
+
+
+add_action('manage_lp_order_posts_custom_column', function($column_key, $post_id) {
+
+    if ($column_key == 'method_title') {
+        $allegro_id = get_post_meta($post_id, 'method_title', true);
+        echo  $allegro_id ;
+    }
+    if ($column_key == 'id') {
+        $order_id = get_post_meta($post_id, 'method_title', true) == 'stripe' ? get_post_meta($post_id, 'stripe_payment_id', true) : get_post_meta($post_id, 'paypal_agreement_id', true);
+        echo  $order_id  ;
+
+    }
+
+
+
+}, 10, 2);
+
+
+
+add_filter('manage_quiz_result_posts_columns', function($columns) {
+    return array_merge($columns,
+
+        ['user' => 'User']
+
+    );
+}, 1    );
+
+
+add_action('manage_quiz_result_posts_custom_column', function($column_key, $post_id) {
+
+    if ($column_key == 'user') {
+        $user = get_field( 'user', $post_id);
+        echo(  $user['user_email'] ) ;
+    }
+
+
+
+
+}, 10, 2);
+
+
+
