@@ -48,16 +48,16 @@
    // $('.registration-quiz').validate()
 
 
+
     $('.registration-quiz').validate({
 
 
 
-        submitHandler: function(form) {
+        submitHandler: function(form, event) {
 
 
 
-
-
+            event.preventDefault();
 
 
             $('._form_13 [name="email"]').val($('#email-10').val());
@@ -68,7 +68,6 @@
 
             var email = $('.registration-quiz #email').val()
 
-            console.log(email)
 
 
             $('[data-name="email"]').val(email);
@@ -80,18 +79,41 @@
             $('#_form_15_submit').click();
 
 
+            var data = $('.registration-quiz').serializeArray(),
+                container = $('.registration-quiz');
 
-            dataLayer.push({
+            var submitData = data;
 
-                'event' : 'ctaGetQuizResults',
-                'event-parameter' : quizName
+            $.ajax({
+                type: action,
+                url: window.global.url,
+                data: submitData,
+                dataType: "json",
+                beforeSend: function (response) {
+                    // Add loader
+                    if (container) container.addClass("loading");
+                },
+                complete: function (response) {
+                    if (container) container.removeClass("loading");
+                },
+                success: function() {
+
+                    dataLayer.push({
+
+                        'event' : 'ctaGetQuizResults',
+                        'event-parameter' : quizName
+                    });
+
+
+                    if (data.redirect) window.location.href = data.redirect;
+                    if (data.remove && $(data.remove).length) $(data.remove).slideToggle(300);
+                    if (data.show && $(data.show).length) $(data.show).slideToggle(300);
+                },
             });
 
 
-            
-            $('.ajax_form').submit();
 
-
+       
             return false;
 
 
