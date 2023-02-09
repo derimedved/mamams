@@ -179,10 +179,16 @@
       var quiz_active_campaign_id = "<?=  get_field('active_campaign_id', get_field('quiz_id')  ) ?>";
       var quiz_score = "<?= $heart_result ?>";
       var link = "<?= home_url() ?><?= the_permalink() ?>";
+      var endDate = '<?= date('Y-m-d') ?>'
+      var endTime = '<?= date('h:i') ?>'
 
       $('[data-name="email"]').val(email);
       $('[data-name="quizscore'+quiz_active_campaign_id+'"]').val(quiz_score);
       $('[data-name="quiz'+quiz_active_campaign_id+'link"]').val(link);
+
+      $('.datetime_date[data-name="quizenddate"]').val(endDate);
+      $('.datetime_time[data-name="quizenddate"]').val(endTime);
+
 
       $('[data-name]').each(function(){
         var val = $(this).val();

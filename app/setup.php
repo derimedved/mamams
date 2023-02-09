@@ -31,7 +31,7 @@ add_action('wp_enqueue_scripts', function () {
 
     if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
         basename(get_page_template()) == "template-registration-upd.blade.php" ||
-        basename(get_page_template()) == "template-quiz.blade.php"){
+        basename(get_page_template()) == "template-quiz.blade.php"   ){
 
         $styles[]="assets/css/nice-select.css";
         $styles[]="assets/css/updated_checkout.css?v=".rand(0,9999);
@@ -145,7 +145,7 @@ add_action('wp_enqueue_scripts', function () {
     if(basename(get_page_template()) == "template-plan-upd.blade.php" ||
         basename(get_page_template()) == "template-registration-upd.blade.php" ||
         basename(get_page_template()) == "template-registration-valid.blade.php" ||
-        basename(get_page_template()) == "template-after_quiz.blade.php"
+        basename(get_page_template()) == "template-after_quiz.blade.php" || is_singular('quiz')
         
     ){
 
@@ -160,7 +160,7 @@ add_action('wp_enqueue_scripts', function () {
 
     if(  basename(get_page_template()) == "template-registration-upd.blade.php" ||
         basename(get_page_template()) == "template-registration-valid.blade.php"||
-        basename(get_page_template()) == "template-after_quiz.blade.php"
+        basename(get_page_template()) == "template-after_quiz.blade.php" || is_singular('quiz')
     )  {
         $scripts[]="assets/js/registration.js?v=".rand(0,9999);
     }

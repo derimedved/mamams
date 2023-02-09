@@ -239,8 +239,117 @@
 
     </div>
 
+
+    <?php  if (!is_user_logged_in()){ ?>
+        <div class="info-popup-quiz-reg" id="info-popup-quiz-reg" style="display: none;">
+            <div class="main-popup">
+
+                <div class="quiz-wrap">
+                    <div class="no-login-form">
+                        @php
+
+                            $image = get_field('image', 3793);
+
+
+                        @endphp
+                        <div class="content-width0">
+                            <div class="content">
+
+                                @if($image)
+                                    <figure>
+                                       <img src="{{ $image['url'] }}">
+                                    </figure>
+                                @endif
+
+                                <h5 class="title">{!!  get_the_title()  !!}</h5>
+
+                                {!! get_post(3793)->post_content !!}
+
+                                <form action="#" class="quiz-default-form ajax_form registration-quiz">
+
+                                    <div class="input-wrap">
+                                        <label for="email"></label>
+
+                                        <input type="email" data-msg-remote="Un compte existe déjà pour cette adresse email. Identifiez-vous ou utilisez un mot de passe oublié"
+                                               data-rule-remote="/wp-admin/admin-ajax.php?action=validate_email&r=<?= rand(0,99999) ?>" id="email" name="email" placeholder="Adresse email" required>
+
+
+                                    </div>
+
+
+                                    <div class="input-wrap input-wrap-50">
+                                        <input name="password" id="password" class="login__fields_password field__input" type="password" placeholder="Mot de passe" required>
+                                    </div>
+
+                                    <div class="input-wrap input-wrap-50">
+                                        <input name="password2" data-rule-equalTo="#password" class="login__fields_password field__input" type="password" placeholder="Confirmez votre mot de passe" required>
+                                    </div>
+
+
+
+
+                                    <div class="input-wrap-submit">
+                                        <button class="btn submit-registration-quiz" type="submit" id="show-analyze">Continuer</button>
+                                        <div class="text">
+                                            <p>Vous avez déjà un compte ?</p>
+                                            <p><a href="/login?quiz_id={{ get_the_id() }}">Se connecter</a></p>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="action" value="ajax_registration">
+                                    <input type="hidden" name="quiz" value="{{ get_permalink( ) }}">
+                     
+                                    @php wp_nonce_field( 'ajax-registration-nonce', 'security' ); @endphp
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <script>
+
+            jQuery(document).ready(function($){
+
+
+                setTimeout(function(){
+                    $.fancybox.open({ // FancyBox 3
+                        src: '#info-popup-quiz-reg',
+                        modal: true
+                    });
+                }, 1700)
+
+
+            })
+        </script>
+
+    <?php  } ?>
+
+    <div style="display:none">
+
+        <div class="_form_15"></div><script src="https://albelichenko39050.activehosted.com/f/embed.php?id=15" type="text/javascript" charset="utf-8"></script>
+    </div>
+
+
+
     <script>
         var quizName = "<?php the_title() ?>"
+        var startDate = '<?= date('Y-m-d') ?>'
+        var startTime = '<?= date('h:i') ?>'
+        var link = "<?= home_url() ?><?= the_permalink() ?>";
+        var quiz_active_campaign_id = "<?=  get_field('active_campaign_id'  ) ?>"
+
+
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js" integrity="sha512-aUhL2xOCrpLEuGD5f6tgHbLYEXRpYZ8G5yD+WlFrXrPy2IrWBlu6bih5C9H6qGsgqnU6mgx6KtU8TreHpASprw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

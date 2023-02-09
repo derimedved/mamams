@@ -77,9 +77,9 @@ if(!current_user_can( 'administrator' )&&is_user_logged_in()) {
                         <input type="hidden" name="c" value="{{ $_GET['c'] }}">
                     @endif
 
-                    @if ($_GET['quiz_result_id'])
+                    @if ($_GET['quiz_id'])
                         <input type="hidden" name="q" value="{{ get_permalink(3794) . '?quiz_result_id=' . $_GET['quiz_result_id'] }}">
-                        <input type="hidden" name="quiz_result_id" value="{{   $_GET['quiz_result_id'] }}">
+                        <input type="hidden" name="quiz_id" value="{{   $_GET['quiz_id'] }}">
                     @endif
 
                 </form>

@@ -54,11 +54,47 @@
 
         submitHandler: function(form) {
 
-            $('.ajax_form').submit();
+
+
+
+
+
 
             $('._form_13 [name="email"]').val($('#email-10').val());
             $("#_form_13_submit").click();
             $('#email-10').val('')
+
+
+
+            var email = $('.registration-quiz #email').val()
+
+            console.log(email)
+
+
+            $('[data-name="email"]').val(email);
+            $('[data-name="quiz'+quiz_active_campaign_id+'link"]').val(link);
+            $('.datetime_date[data-name="quizstartdate"]').val(startDate);
+            $('.datetime_time[data-name="quizstartdate"]').val(startTime);
+
+
+            $('#_form_15_submit').click();
+
+
+
+            dataLayer.push({
+
+                'event' : 'ctaGetQuizResults',
+                'event-parameter' : quizName
+            });
+
+
+            
+            $('.ajax_form').submit();
+
+
+            return false;
+
+
         }
     });
 

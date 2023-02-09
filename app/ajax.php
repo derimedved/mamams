@@ -2021,7 +2021,7 @@ class Ajax extends Controller
 
                     if ($_POST['quiz']) {
 
-                        update_field('user', $user_id,  $_POST['quiz_result_id']);
+                       // update_field('user', $user_id,  $_POST['quiz_result_id']);
                         $redirect =  $_POST['quiz'];
 
 
@@ -2149,10 +2149,10 @@ class Ajax extends Controller
 
             }
 
-            if ($_POST['q']) {
+            if ($_POST['quiz_id']) {
 
-                update_field('user', $auth->ID,  $_POST['quiz_result_id']);
-                $redirect =  $_POST['q'];
+             //   update_field('user', $auth->ID,  $_POST['quiz_result_id']);
+                $redirect =  get_permalink($_POST['quiz_id']);
 
             }
 

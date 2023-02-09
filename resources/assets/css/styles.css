@@ -2901,10 +2901,14 @@ header {
 
 
 
+.info-popup-quiz-reg .no-login-form{
+  min-height: inherit;
+}
 
 
-
-
+.info-popup-quiz-reg.fancybox-content{
+  background: transparent;
+}
 
 
 
@@ -10382,6 +10386,9 @@ header.fixed{
   .knowledge h6 b:last-child{
     display: block;
     text-align: center;
+  }
+  .info-popup-quiz-reg.fancybox-content{
+    padding: 15px;
   }
 }
 

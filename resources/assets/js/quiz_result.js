@@ -49,12 +49,7 @@ jQuery(document).ready(function($) {
 				if (data) {
 					console.log(data)
 
-					dataLayer.push({
-
-						'event' : 'ctaGetQuizResults',
-						'event-parameter' : quizName
-					});
-
+					
 
 					window.location.href = data;
 				}
